@@ -1,18 +1,14 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+//import { makeStyles } from "@material-ui/core/styles";
 import Popover from "@material-ui/core/Popover";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import Slider from "@material-ui/core/Slider";
 import styled, { css } from "styled-components";
-import RangeSlider from "components/forms/RangeSlider.js";
 import CheckBox from "components/forms/CheckBox.js";
 
-const useStyles = makeStyles((theme) => ({
-  typography: {
-    padding: theme.spacing(2),
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   typography: {
+//     padding: theme.spacing(2),
+//   },
+// }));
 
 const StyledPopover = styled.div`
   margin-top: 1px;
@@ -35,33 +31,32 @@ const StyledPopover = styled.div`
   border: 1px solid ${(props) => props.theme.colors.gainsboro};
 `;
 
-const MaxStops = styled.p`
-  color: ${(props) =>
-    props.selected
-      ? props.theme.colors.white
-      : props.theme.colors.darkSlateGray};
-  margin-right: 17px;
-  letter-spacing: 0.2px;
-  font-family: ${(props) =>
-    props.selected
-      ? props.theme.fonts.nunito13Bold.family
-      : props.theme.fonts.nunito13SemiBold.family};
-  font-size: ${(props) =>
-    props.selected
-      ? props.theme.fonts.nunito13Bold.size
-      : props.theme.fonts.nunito13SemiBold.size};
-  font-weight: ${(props) =>
-    props.selected
-      ? props.theme.fonts.nunito13Bold.weight
-      : props.theme.fonts.nunito13SemiBold.weight};
-  line-height: ${(props) =>
-    props.selected
-      ? props.theme.fonts.nunito13Bold.lineHeight
-      : props.theme.fonts.nunito13SemiBold.lineHeight};
-`;
+// const MaxStops = styled.p`
+//   color: ${(props) =>
+//     props.selected
+//       ? props.theme.colors.white
+//       : props.theme.colors.darkSlateGray};
+//   margin-right: 17px;
+//   letter-spacing: 0.2px;
+//   font-family: ${(props) =>
+//     props.selected
+//       ? props.theme.fonts.nunito13Bold.family
+//       : props.theme.fonts.nunito13SemiBold.family};
+//   font-size: ${(props) =>
+//     props.selected
+//       ? props.theme.fonts.nunito13Bold.size
+//       : props.theme.fonts.nunito13SemiBold.size};
+//   font-weight: ${(props) =>
+//     props.selected
+//       ? props.theme.fonts.nunito13Bold.weight
+//       : props.theme.fonts.nunito13SemiBold.weight};
+//   line-height: ${(props) =>
+//     props.selected
+//       ? props.theme.fonts.nunito13Bold.lineHeight
+//       : props.theme.fonts.nunito13SemiBold.lineHeight};
+// `;
 
 export default function PopoverSlider(props) {
-  const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [airlines, setAirlines] = React.useState([]);
 

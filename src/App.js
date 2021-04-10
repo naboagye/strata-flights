@@ -104,7 +104,7 @@ import Search from "pages/Search.js";
 import SearchCard from "components/cards/SearchCard.js";
 
 import ComponentRenderer from "ComponentRenderer.js";
-import MainLandingPage from "MainLandingPage.js";
+//import MainLandingPage from "MainLandingPage.js";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 

@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { DatePicker } from "react-rainbow-components";
-import SearchContainerComponent from "components/cards/SearchContainerComponent.js";
 //import "./style.css";
 
 export default class Example extends React.Component {
@@ -16,7 +15,7 @@ export default class Example extends React.Component {
     //console.log(this.state.date);
   };
   containerStyles = {
-    maxWidth: 150,
+    maxWidth: "100%",
     isBare: true,
   };
 

@@ -7,9 +7,11 @@ export default {
     dodgerBlue: "rgba(45,170,226,1)",
     dodgerBlue2: "rgba(0,144,215,1)",
     dodgerBlue3: "rgba(26,159,221,1)",
+    dodgerBlue4: "rgba(22,157,220,1)",
     gainsboro: "rgba(229,229,229,1)",
     gray: "rgba(115,123,125,1)",
     green: "rgba(15,169,88,1)",
+    lightSlateGray: "rgba(124,135,140,1)",
     snow: "rgba(250,250,250,1)",
     teal: "rgba(0,96,143,1)",
     transparentBlack: "rgba(0,0,0,0.25)",
@@ -28,6 +30,12 @@ export default {
       weight: "400",
       lineHeight: "30px",
     },
+    nunito12Regular: {
+      family: "Nunito",
+      size: "12px",
+      weight: "400",
+      lineHeight: "18px",
+    },
     nunito13Bold: {
       family: "Nunito",
       size: "13px",
@@ -39,6 +47,12 @@ export default {
       size: "13px",
       weight: "600",
       lineHeight: "18px",
+    },
+    nunito14Regular: {
+      family: "Nunito",
+      size: "14px",
+      weight: "400",
+      lineHeight: "22px",
     },
     nunito14SemiBold: {
       family: "Nunito",
@@ -58,10 +72,28 @@ export default {
       weight: "600",
       lineHeight: "18px",
     },
+    nunito24SemiBold: {
+      family: "Nunito",
+      size: "24px",
+      weight: "600",
+      lineHeight: "18px",
+    },
     nunito36Bold: {
       family: "Nunito",
       size: "36px",
       weight: "700",
+      lineHeight: "18px",
+    },
+    nunito36BoldLine56: {
+      family: "Nunito",
+      size: "36px",
+      weight: "700",
+      lineHeight: "56px",
+    },
+    nunito36ExtraBold: {
+      family: "Nunito",
+      size: "36px",
+      weight: "800",
       lineHeight: "18px",
     },
     nunito48Regular: {

@@ -26,6 +26,7 @@ module.exports = {
         700: "#2DAAE2",
         800: "#2DAAE2",
         900: "#2DAAE2",
+        sky: "#DBE3E9",
       },
 
       secondary: {

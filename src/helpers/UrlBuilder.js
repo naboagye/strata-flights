@@ -14,11 +14,11 @@ export function Url(
   sort
 ) {
   var num = "";
-  if (tripClass == "Economy") {
+  if (tripClass === "Economy") {
     tripClass = "M";
-  } else if (tripClass == "Business") {
+  } else if (tripClass === "Business") {
     tripClass = "C";
-  } else if (tripClass == "Economy Premium") {
+  } else if (tripClass === "Economy Premium") {
     tripClass = "W";
   } else {
     tripClass = "F";
@@ -28,7 +28,7 @@ export function Url(
     num = "0%2C0";
   }
 
-  if (oneWayOrReturn == "Round trip") {
+  if (oneWayOrReturn === "Round trip") {
     return `https://tequila-api.kiwi.com/v2/search?fly_from=${from}&fly_to=${to}&date_from=${outboundDate}&date_to=${outboundDate}&return_from=${returnDate}&return_to=${returnDate}&dtime_from=${
       outbound[0] + ":00"
     }&dtime_to=${outbound[1] + ":00"}&atime_from=${

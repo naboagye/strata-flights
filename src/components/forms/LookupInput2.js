@@ -1,10 +1,12 @@
 /* eslint-disable no-use-before-define */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import TextField from "@material-ui/core/TextField";
+//import TextField from "@material-ui/core/TextField";
+//import Input from "@material-ui/core/Input";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 //import styled from "styled-components";
 import { matchSorter } from "match-sorter";
+import tw from "twin.macro";
 
 // const FromBox = styled.div`
 //   background-color: ${(props) => props.theme.colors.white};
@@ -13,6 +15,8 @@ import { matchSorter } from "match-sorter";
 //   border: 1px solid ${(props) => props.theme.colors.gainsboro};
 //   padding: 23px 23px 23px 29px;
 // `;
+
+const Input = tw.input`border-2 px-5 py-3 rounded focus:outline-none font-medium transition duration-300 hocus:border-primary-500 w-full`;
 
 // const FromLbl = styled.input`
 //   font-family: ${(props) => props.theme.fonts.nunito18SemiBold.family};
@@ -49,9 +53,9 @@ export default function LookupInput(props) {
     //console.log("get locations");
   }, [query]);
 
-  function submit(airport, country_code) {
+  function submit(airport, country_code, name) {
     if (typeof props.search === "function") {
-      props.search(airport, country_code);
+      props.search(airport, country_code, name);
     }
     //console.log(keyword);
   }
@@ -66,35 +70,24 @@ export default function LookupInput(props) {
 
   return (
     <Autocomplete
-      id="controllable-states-demo"
-      disableClearable
-      noOptionsText="No found destination"
+      id="custom-input-demo"
       options={locations}
       filterOptions={filterOptions}
+      noOptionsText="No found destination"
       getOptionLabel={(option) => option.code}
-      getOptionSelected={(option, value) => option.id === value.id}
       renderOption={(option) => (
         <React.Fragment>
           {option.city.name} ({option.code})
         </React.Fragment>
       )}
-      onInputChange={(e, value) => setQuery(value)}
-      onChange={(e, value) => {
-        submit(
-          value.id,
-          value.city.country === undefined
-            ? value.country.code
-            : value.city.country.code
-        );
-      }}
+      onInputChange={(event, value) => setQuery(value)}
+      onChange={(e, value) =>
+        submit(value.id, value.city.country.code, value.city.name)
+      }
       renderInput={(params) => (
-        <TextField
-          {...params}
-          size="medium"
-          label={props.term}
-          type="search"
-          InputProps={{ ...params.InputProps, type: "search" }}
-        />
+        <div ref={params.InputProps.ref}>
+          <Input type="text" {...params.inputProps} placeholder="Destination" />
+        </div>
       )}
     />
   );

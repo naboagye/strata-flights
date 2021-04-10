@@ -1,9 +1,11 @@
 import Example from "components/custom/DatePicker";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import LookupInput from "components/forms/LookupInput";
 import { useHistory } from "react-router-dom";
 import DropDown from "components/forms/Dropdown";
+import Grid from "@material-ui/core/Grid";
+import Hidden from "@material-ui/core/Hidden";
 
 export const SearchContainer = styled.div`
   background-color: ${(props) => props.theme.colors.snow};
@@ -66,7 +68,7 @@ export const FromBox = styled.div`
   padding: 11px 26px 11px 26px;
   position: relative;
   border: 1px solid ${(props) => props.theme.colors.gainsboro};
-  width: 240px;
+  width: 100%;
 `;
 export const FromLbl = styled.input`
   font-family: ${(props) => props.theme.fonts.nunito18SemiBold.family};
@@ -93,22 +95,30 @@ export const ToBox = styled.div`
   background-color: ${(props) => props.theme.colors.white};
   border-radius: 10px;
   padding: 11px 29px 11px 29px;
-  position: absolute;
-  right: -261px;
-  top: 0;
   border: 1px solid ${(props) => props.theme.colors.gainsboro};
-  width: 240px;
+  width: 100%;
 `;
 export const SwitchCircle = styled.button`
   background-color: ${(props) => props.theme.colors.white};
   border-radius: 50%;
   padding: 11px 12px 12px 11px;
   display: flex;
+  z-index: 9;
+  left: 265px;
+  top: 410px;
   align-items: center;
   position: absolute;
-  right: -41px;
-  top: 8px;
   border: 1px solid ${(props) => props.theme.colors.gainsboro};
+
+  @media (max-width: 1250px) {
+    left: 230px;
+    top: 540px;
+  }
+
+  @media (max-width: 1025px) {
+    left: 445px;
+    top: 380px;
+  }
 `;
 export const FlexWrapperThree = styled.div`
   display: flex;
@@ -125,7 +135,7 @@ export const DatePicker = styled.div`
 export const FlexWrapperOne = styled.div`
   background-color: ${(props) => props.theme.colors.white};
   border-radius: 10px;
-  padding: 15px 73px 15px 26px;
+  padding: 15px 26px 15px 26px;
   display: flex;
   align-items: center;
   position: relative;
@@ -144,10 +154,10 @@ export const FromDateLbl = styled.p`
 `;
 export const Split = styled.div`
   width: 1px;
-  height: 66.01px;
+  height: 70px;
   background-color: ${(props) => props.theme.colors.gainsboro};
   position: absolute;
-  left: 230px;
+  margin-left: 180px;
   top: 0;
 `;
 export const ArrowsGrey = styled.div`
@@ -164,6 +174,13 @@ export const ArrowsGreyTwo = styled.div`
   right: 19px;
   top: 20px;
 `;
+
+export const SearchIcon = styled.img`
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
 export const SearchBtn = styled.button`
   border-radius: 10px;
   padding: 20px 20px 21px;
@@ -175,13 +192,17 @@ export const SearchBtn = styled.button`
     ${(props) => props.theme.colors.dodgerBlue3} 38%,
     ${(props) => props.theme.colors.dodgerBlue} 50%
   );
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 const SearchContainerComponent = (props) => {
   const [term, setTerm] = useState(props.term || "");
   const [location, setLocation] = useState(props.location || "");
-  const [fromDate, setFromDate] = useState(props.fromDate || "");
-  const [toDate, setToDate] = useState(props.toDate || "");
+  const [fromDate, setFromDate] = useState({ value: new Date() });
+  const [toDate, setToDate] = useState({ value: new Date() });
   const [oneWayOrReturn, setOneWayOrReturn] = useState(
     props.oneWayOrReturn || "Round trip"
   );
@@ -232,69 +253,91 @@ const SearchContainerComponent = (props) => {
   }
 
   function getTripClass(term) {
-    console.log(term);
+    //console.log(term);
     setTripClass(term);
   }
 
   function getPassengerNum(term) {
-    console.log(term);
+    //console.log(term);
     setPassengersNum(term);
   }
 
   function getOneWayOrReturn(term) {
-    console.log(term);
+    //console.log(term);
     setOneWayOrReturn(term);
   }
   return (
     <SearchContainer>
-      <FlexWrapperTwo>
-        <RoundTripFilter onClick={(e) => setOneWayOrReturn(e.target.innerText)}>
-          <DropDown
-            search={getOneWayOrReturn}
-            options={["Round trip", "One way"]}
-          />
-        </RoundTripFilter>
-        <RoundTripFilter onClick={(e) => setPassengersNum(e.target.innerText)}>
-          <DropDown search={getPassengerNum} options={["1", "2"]} />
-        </RoundTripFilter>
-        <RoundTripFilter onClick={(e) => setTripClass(e.target.innerText)}>
-          <DropDown
-            search={getTripClass}
-            options={["Economy", "Premium Economy", "Business", "First"]}
-          />
-        </RoundTripFilter>
-      </FlexWrapperTwo>
-      <RelativeWrapperOne>
-        <FromBox>
-          <LookupInput term="From?" search={search} />
-        </FromBox>
-        <ToBox>
-          <LookupInput term="To?" search={search2} />
-        </ToBox>
-        <SwitchCircle>
-          <img
-            alt=""
-            src="https://static.overlay-tech.com/assets/947a335b-66b9-4f2a-85d9-efaabec6671a.png"
-          />
-        </SwitchCircle>
-      </RelativeWrapperOne>
-      <FlexWrapperThree>
-        <RelativeWrapperTwo>
-          <DatePicker>
-            <FlexWrapperOne>
-              <Example search={getFromDate} />
-              <Example search={getToDate} />
-            </FlexWrapperOne>
-            <Split />
-          </DatePicker>
-        </RelativeWrapperTwo>
-        <SearchBtn onClick={submit}>
-          <img
-            alt=""
-            src="https://static.overlay-tech.com/assets/6ca73bc8-b5fc-4fee-8193-7ac133bc88cf.png"
-          />
-        </SearchBtn>
-      </FlexWrapperThree>
+      <Grid container spacing={2}>
+        <Hidden xsDown>
+          <Grid item xs={12} sm={4}>
+            <RoundTripFilter
+              onClick={(e) => setOneWayOrReturn(e.target.innerText)}
+            >
+              <DropDown
+                search={getOneWayOrReturn}
+                options={["Round trip", "One way"]}
+              />
+            </RoundTripFilter>
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <RoundTripFilter
+              onClick={(e) => setPassengersNum(e.target.innerText)}
+            >
+              <DropDown search={getPassengerNum} options={["1", "2"]} />
+            </RoundTripFilter>
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <RoundTripFilter onClick={(e) => setTripClass(e.target.innerText)}>
+              <DropDown
+                search={getTripClass}
+                options={["Economy", "Premium Economy", "Business", "First"]}
+              />
+            </RoundTripFilter>
+          </Grid>
+        </Hidden>
+        <Grid item xs={12} sm={6}>
+          <FromBox>
+            <LookupInput term="From?" search={search} />
+          </FromBox>
+          <Hidden xsDown>
+            <SwitchCircle>
+              <img
+                alt=""
+                src="https://static.overlay-tech.com/assets/947a335b-66b9-4f2a-85d9-efaabec6671a.png"
+              />
+            </SwitchCircle>
+          </Hidden>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <ToBox>
+            <LookupInput term="To?" search={search2} />
+          </ToBox>
+        </Grid>
+        <Grid item xs={12} sm={10}>
+          <FlexWrapperOne>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={6}>
+                <Example search={getFromDate} />
+                <Hidden xsDown>
+                  <Split />
+                </Hidden>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Example search={getToDate} />
+              </Grid>
+            </Grid>
+          </FlexWrapperOne>
+        </Grid>
+        <Grid item xs={12} sm={2}>
+          <SearchBtn onClick={submit}>
+            <SearchIcon
+              alt=""
+              src="https://static.overlay-tech.com/assets/6ca73bc8-b5fc-4fee-8193-7ac133bc88cf.png"
+            />
+          </SearchBtn>
+        </Grid>
+      </Grid>
     </SearchContainer>
   );
 };

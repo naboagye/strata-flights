@@ -57,10 +57,6 @@ function AirbnbThumbComponent(props) {
   );
 }
 
-function valuetext(value) {
-  return `${value}°C`;
-}
-
 const marks = [
   {
     value: 0,

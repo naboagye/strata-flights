@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Card, Button } from "react-rainbow-components";
+import { Card } from "react-rainbow-components";
 import styled from "styled-components";
 import axios from "axios";
-import { getYYYYMMDD } from "helpers/DurationConverter.js";
 
 const Title = styled.h1.attrs((props) => props.theme.rainbow)`
   font-family: "Lato Light";
@@ -43,15 +42,11 @@ const OutputText = styled.h5`
   color: black;
 `;
 
-const StyledCard = styled(Card)`
-  width: 300px;
-  height: 500px;
-  margin-top: 100px;
-`;
+const StyledCard = styled(Card)``;
 
 export default function SnapshotCard(props) {
   //const date = getYYYYMMDD(new Date());
-  const date = "2021-03-31";
+  const date = "2021-04-02";
   const code = props.code;
   const [data, setData] = useState("");
   const [cases, setCases] = useState("");
@@ -69,7 +64,7 @@ export default function SnapshotCard(props) {
       ])
       .then((response) => {
         setData(response[0].data.body.Item);
-        setCases(response[1].data.body.Item);
+        setCases(response[1].data.body.Item.Item);
         setImgLink(response[2].data.flag);
       });
   };
@@ -87,18 +82,10 @@ export default function SnapshotCard(props) {
         <BigPriceText>{data.country}</BigPriceText>
       </div>
       <img src={imgLink} alt="country flag" />
-      <OutputText>
-        Travel Info: <OutputText bold>{data.info}</OutputText>
-      </OutputText>
-      <OutputText>
-        Date: <OutputText bold>{data.date}</OutputText>
-      </OutputText>
-      <OutputText>
-        Cases: <OutputText bold>{cases.dailyCases}</OutputText>
-      </OutputText>
-      <OutputText>
-        Rate: <OutputText bold>{cases.rate}</OutputText>
-      </OutputText>
+      <OutputText>Travel Info: {data.info}</OutputText>
+      <OutputText>Date: {data.date}</OutputText>
+      <OutputText>Cases: {cases.dailyCases}</OutputText>
+      <OutputText>Rate: {cases.rate}</OutputText>
     </StyledCard>
   );
 }

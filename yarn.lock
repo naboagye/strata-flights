@@ -9680,6 +9680,11 @@ react-autosuggest@^10.1.0:
     section-iterator "^2.0.0"
     shallow-equal "^1.2.1"
 
+react-circle-flags@^0.0.14:
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/react-circle-flags/-/react-circle-flags-0.0.14.tgz#5dc5545983c07dc6bbf49e72200d920fea49d3db"
+  integrity sha512-GNaOga3YV+OJvSn07KPv1uGd9MBU2TY8rD3y5+7WRrY+KpBSSzXz8oh/LctBlSMywzEJMWWmYbFT9C+L/PqEaw==
+
 react-dev-utils@^10.2.1:
   version "10.2.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-10.2.1.tgz#f6de325ae25fa4d546d09df4bb1befdc6dd19c19"

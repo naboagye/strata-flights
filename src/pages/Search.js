@@ -1,54 +1,45 @@
-import React, { useState } from "react";
+import React from "react";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
-import tw from "twin.macro";
 import { css } from "styled-components/macro"; //eslint-disable-line
 import Header from "components/headers/light.js";
-import Footer from "components/footers/FiveColumnWithInputForm.js";
-import ContactUsForm from "components/forms/TwoColContactUsWithIllustrationFullForm.js";
-import ContactDetails from "components/cards/ThreeColContactDetails.js";
-import SearchCard from "components/cards/SearchCard.js";
+import Footer from "components/footers/MiniCenteredFooter.js";
 import { useLocation } from "react-router-dom";
-import DropDown from "components/forms/Dropdown.js";
-import MaxSearch from "components/cards/MaxSearch";
-import Grid from "@material-ui/core/Grid";
-import styled from "styled-components";
-import { Card } from "react-rainbow-components";
-import SnapshotCard from "components/cards/SnapshotCard.js";
+import SearchResults from "components/cards/SearchResults.js";
+//import tw from "twin.macro";
 
-const Address = tw.span`leading-relaxed`;
-const AddressLine = tw.span`block`;
-const Email = tw.span`text-sm mt-6 block text-gray-500`;
-const Phone = tw.span`text-sm mt-0 block text-gray-500`;
-const StyledCard = styled(Card)`
-  width: 990px;
-  height: 200px;
-`;
-
-export default (props) => {
+export default () => {
   const location = useLocation();
-  //console.log(location.term, location.location)
-  //console.log(location.state.term.term);
-  //console.log(location.state.location.location);
-  //console.log(location.state.code.code);
-  //const [code, setCode] = useState(location.state.code.code);
+  const from = location.state === undefined ? "" : location.state.term.term;
+  const to =
+    location.state === undefined ? "" : location.state.location.location;
+  const fromDate =
+    location.state === undefined ? "" : location.state.fromDate.fromDate.value;
+  const toDate =
+    location.state === undefined ? "" : location.state.toDate.toDate.value;
+  const oneWayOrReturn =
+    location.state === undefined
+      ? ""
+      : location.state.oneWayOrReturn.oneWayOrReturn;
+  const passengersNum =
+    location.state === undefined
+      ? ""
+      : location.state.passengersNum.passengersNum;
+  const tripClass =
+    location.state === undefined ? "" : location.state.tripClass.tripClass;
+  const code = location.state === undefined ? "" : location.state.code.code;
 
-  // function getDestCode(term) {
-  //   console.log(term);
-  //   setCode(term);
-  // }
-  console.log();
   return (
     <AnimationRevealPage>
       <Header />
-      <MaxSearch
-        from={location.state.term.term}
-        to={location.state.location.location}
-        fromDate={location.state.fromDate.fromDate.value}
-        toDate={location.state.toDate.toDate.value}
-        oneWayOrReturn={location.state.oneWayOrReturn.oneWayOrReturn}
-        passengersNum={location.state.passengersNum.passengersNum}
-        tripClass={location.state.tripClass.tripClass}
-        code={location.state.code.code}
+      <SearchResults
+        from={from}
+        to={to}
+        fromDate={fromDate}
+        toDate={toDate}
+        oneWayOrReturn={oneWayOrReturn}
+        passengersNum={passengersNum}
+        tripClass={tripClass}
+        code={code}
       />
       <Footer />
     </AnimationRevealPage>

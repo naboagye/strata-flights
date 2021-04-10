@@ -7,20 +7,21 @@ import Example from "components/custom/DatePicker";
 import LookupInput from "components/forms/LookupInput";
 import SearchCard from "components/cards/SearchCard.js";
 import Filters from "components/forms/Filters";
-import SnapshotCard from "components/cards/SnapshotCard.js";
 import Sort from "components/forms/Sort";
 import Snap from "components/cards/Snap.js";
 import tw from "twin.macro";
+import { Card } from "react-rainbow-components";
+import Hidden from "@material-ui/core/Hidden";
 
 export const SearchContainer = styled.div`
   background-color: ${(props) => props.theme.colors.white};
   border-radius: 25px;
   padding: 34px 42px 29.99px 38px;
   display: flex;
-  align-items: flex-start;
+  flex-grow: 1;
 `;
 export const FlexWrapperTwo = styled.div`
-  margin-right: 0px;
+  margin-right: 21px;
   padding: 0 2px 0 0;
   display: flex;
   flex-direction: column;
@@ -57,10 +58,9 @@ export const RelativeWrapperOne = styled.div`
 export const FromBox = styled.div`
   background-color: ${(props) => props.theme.colors.snow};
   border-radius: 10px;
-  padding: 18px 26px 20px 26px;
+  padding: 16px 18px 12px 26px;
   position: relative;
   border: 1px solid ${(props) => props.theme.colors.gainsboro};
-  width: 240px;
 `;
 export const FromDest = styled.p`
   color: ${(props) => props.theme.colors.darkSlateGray};
@@ -85,12 +85,17 @@ export const SwitchCircle = styled.div`
   background-color: ${(props) => props.theme.colors.white};
   border-radius: 50%;
   padding: 11px 12px 12px 11px;
+  z-index: 9;
   display: flex;
   align-items: center;
-  position: absolute;
-  right: -41px;
-  top: 8px;
+  right: -30px;
+  width: 50px;
   border: 1px solid ${(props) => props.theme.colors.gainsboro};
+
+  @media (max-width: 725px) {
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 export const FlexWrapperThree = styled.div`
   margin-right: 9px;
@@ -116,12 +121,9 @@ export const EcLabel = styled.p`
 export const ToBox = styled.div`
   background-color: ${(props) => props.theme.colors.snow};
   border-radius: 10px;
-  padding: 18px 29px 20px 29px;
-  position: absolute;
-  right: -261px;
-  top: 0;
+  padding: 16px 18px 12px 26px;
+  position: relative;
   border: 1px solid ${(props) => props.theme.colors.gainsboro};
-  width: 240px;
 `;
 export const ToAirport = styled.p`
   color: ${(props) => props.theme.colors.gray};
@@ -181,13 +183,11 @@ export const ToLbl = styled.p`
   line-height: ${(props) => props.theme.fonts.nunito18SemiBold.lineHeight};
 `;
 
-const StyledGrid = styled.div`
-  margin-top: 100px;
-`;
+const StyledCard = styled(Card)``;
 
-const LeftColumn = tw.div`relative lg:w-4/12 lg:pr-12 flex-shrink-0 text-center lg:text-left`;
-const RightColumn = tw.div`relative mt-12 lg:mt-0 flex flex-col justify-center`;
-const TwoColumn = tw.div`flex flex-col lg:flex-row md:items-center max-w-screen-xl mx-auto py-20 md:py-24`;
+const LeftColumn = tw.div`relative lg:w-4/12 lg:pr-6 flex-shrink-0 text-center lg:text-left`;
+const RightColumn = tw.div`relative mt-12 lg:mt-0 flex flex-col`;
+const TwoColumn = tw.div`flex flex-col lg:flex-row  max-w-screen-xl mx-auto py-20 md:py-24`;
 const Container = tw.div`relative`;
 
 const MaxSearch = (props) => {
@@ -209,6 +209,7 @@ const MaxSearch = (props) => {
   const [outbound, setOutbound] = useState([0, 23]);
   const [inbound, setInbound] = useState([0, 23]);
   const [sort, setSort] = useState("price");
+  //const [loadCard, setLoadCard] = useState(term === "" ? false : true);
   const options = {
     headers: { apiKey: "H9cYBRBqvEQ9jTIoSMoKb-8ft15P0dCz" },
   };
@@ -279,66 +280,94 @@ const MaxSearch = (props) => {
   return (
     <Container>
       <TwoColumn>
-        <LeftColumn>
-          <Snap code={code} />
-        </LeftColumn>
+        <LeftColumn>{code !== "" && <Snap code={code} />}</LeftColumn>
         <RightColumn>
-          <FlexWrapperFour>
-            <RoundTripFilter>
-              <DropDown
-                search={getOneWayOrReturn}
-                options={["Round trip", "One way"]}
-              />
-            </RoundTripFilter>
-            <RoundTripFilter>
-              <DropDown search={getPassengerNum} options={["1", "2"]} />
-            </RoundTripFilter>
-            <RoundTripFilter>
-              <DropDown
-                search={getTripClass}
-                options={["Economy", "Premium Economy", "Business", "First"]}
-              />
-            </RoundTripFilter>
-          </FlexWrapperFour>
-          <FlexWrapperTwo>
-            <RelativeWrapperOne>
-              <FromBox>
-                <LookupInput term={term} search={search} />
-              </FromBox>
-              <ToBox>
-                <LookupInput term={location} search={search2} />
-              </ToBox>
-              <SwitchCircle onClick={switchLocations}>
-                <img
-                  alt=""
-                  src="https://static.overlay-tech.com/assets/8a70bca2-7ef8-44ee-b862-9cae9d136e96.png"
-                />
-              </SwitchCircle>
-            </RelativeWrapperOne>
-          </FlexWrapperTwo>
-          <FlexWrapperOne>
-            <Example setDate={fromDate} search={getFromDate} />
-            <Split />
-            <Example setDate={toDate} search={getToDate} />
-          </FlexWrapperOne>
+          <StyledCard>
+            <SearchContainer>
+              <Grid container justify="center" alignItems="center">
+                <Hidden xsDown>
+                  <Grid item xs={12} sm={4}>
+                    <RoundTripFilter>
+                      <DropDown
+                        search={getOneWayOrReturn}
+                        options={["Round trip", "One way"]}
+                      />
+                    </RoundTripFilter>
+                  </Grid>
+                  <Grid item xs={12} sm={4}>
+                    <RoundTripFilter>
+                      <DropDown search={getPassengerNum} options={["1", "2"]} />
+                    </RoundTripFilter>
+                  </Grid>
+                  <Grid item xs={12} sm={4}>
+                    <RoundTripFilter>
+                      <DropDown
+                        search={getTripClass}
+                        options={[
+                          "Economy",
+                          "Premium Economy",
+                          "Business",
+                          "First",
+                        ]}
+                      />
+                    </RoundTripFilter>
+                  </Grid>
+                </Hidden>
+                <Grid item xs={12} sm={3}>
+                  <FromBox>
+                    <LookupInput term={term} search={search} />
+                  </FromBox>
+                </Grid>
+                <Grid item xs={12} sm={1}>
+                  <SwitchCircle onClick={switchLocations}>
+                    <img
+                      alt=""
+                      src="https://static.overlay-tech.com/assets/8a70bca2-7ef8-44ee-b862-9cae9d136e96.png"
+                    />
+                  </SwitchCircle>
+                </Grid>
+                <Grid item xs={12} sm={3}>
+                  <ToBox>
+                    <LookupInput term={location} search={search2} />
+                  </ToBox>
+                </Grid>
+                <Grid item xs={12} sm={5}>
+                  <DatePicker>
+                    <FlexWrapperOne>
+                      <Grid container spacing={3}>
+                        <Grid item xs={12} sm={6}>
+                          <Example setDate={fromDate} search={getFromDate} />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                          <Example setDate={toDate} search={getToDate} />
+                        </Grid>
+                      </Grid>
+                    </FlexWrapperOne>
+                  </DatePicker>
+                </Grid>
+              </Grid>
+            </SearchContainer>
+          </StyledCard>
           <Filters search={pullFilters} />
           <Sort search={getSort} />
-          <SearchCard
-            from={term}
-            to={location}
-            fromDate={fromDate}
-            toDate={toDate}
-            oneWayOrReturn={oneWayOrReturn}
-            passengersNum={passengersNum}
-            tripClass={tripClass}
-            maxStopsNum={maxStopsNum}
-            minPrice={minPrice}
-            maxPrice={maxPrice}
-            outbound={outbound}
-            inbound={inbound}
-            isLoading={true}
-            sort={sort}
-          />
+          {term && location && fromDate && toDate !== "" && (
+            <SearchCard
+              from={term}
+              to={location}
+              fromDate={fromDate}
+              toDate={toDate}
+              oneWayOrReturn={oneWayOrReturn}
+              passengersNum={passengersNum}
+              tripClass={tripClass}
+              maxStopsNum={maxStopsNum}
+              minPrice={minPrice}
+              maxPrice={maxPrice}
+              outbound={outbound}
+              inbound={inbound}
+              isLoading={true}
+              sort={sort}
+            />
+          )}
         </RightColumn>
       </TwoColumn>
     </Container>

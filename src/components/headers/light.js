@@ -6,7 +6,7 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 
 import useAnimatedNavToggler from "../../helpers/useAnimatedNavToggler.js";
 
-import logo from "../../images/strata-logo.svg";
+import logo from "../../images/logo500.png";
 import { ReactComponent as MenuIcon } from "feather-icons/dist/icons/menu.svg";
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
 
@@ -81,19 +81,18 @@ export default ({
    * You can also choose to directly modify the links here by not passing any links from the parent component and
    * changing the defaultLinks variable below below.
    * If you manipulate links here, all the styling on the links is already done for you. If you pass links yourself though, you are responsible for styling the links or use the helper styled components that are defined here (NavLink)
-   */
-  const defaultLinks = [
-    <NavLinks key={1}>
-      <NavLink href="/#">About</NavLink>
-      <NavLink href="/#">Blog</NavLink>
-      <NavLink href="/Search">Search</NavLink>
-      <NavLink href="/#">Contact Us</NavLink>
-      <NavLink href="/#" tw="lg:ml-12!">
+  * <NavLink href="/#" tw="lg:ml-12!">
         Login
       </NavLink>
       <PrimaryLink css={roundedHeaderButton && tw`rounded-full`} href="/#">
         Sign Up
-      </PrimaryLink>
+      </PrimaryLink> 
+  */
+  const defaultLinks = [
+    <NavLinks key={1}>
+      <NavLink href="/search">Search</NavLink>
+      <NavLink href="/#">Travel Ideas</NavLink>
+      <NavLink href="/#">Travel Advice</NavLink>
     </NavLinks>,
   ];
 

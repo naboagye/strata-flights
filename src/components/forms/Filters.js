@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
-import { Card } from "react-rainbow-components";
 
 // Nested component imports
 import Cancel from "components/forms/Cancel.js";
@@ -9,7 +8,15 @@ import PopoverCheckbox from "./PopoverCheckbox.js";
 
 export const FiltersBox = styled.div`
   display: flex;
-  align-items: flex-start;
+  margin: 10px auto 10px auto;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media (max-width: 600px) {
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: scroll;
+  }
 `;
 export const StopsFtr = styled.div`
   margin-top: 1px;
@@ -17,6 +24,7 @@ export const StopsFtr = styled.div`
   border-radius: 10px;
   padding: 7px 6.72px 5.72px 15px;
   display: flex;
+  white-space: nowrap;
   align-items: center;
   background: ${(props) =>
     props.selected
@@ -107,6 +115,7 @@ export const PriceFtr = styled.div`
   border-radius: 10px;
   padding: 7px 6.72px 5.72px 15px;
   display: flex;
+  white-space: nowrap;
   align-items: center;
   background: ${(props) =>
     props.selected
@@ -155,6 +164,7 @@ export const AirlinesFtr = styled.div`
       : props.theme.colors.white};
   margin-right: 16px;
   border-radius: 10px;
+  white-space: nowrap;
   padding: 7px 6.72px 5.72px 15px;
   display: flex;
   align-items: center;
@@ -168,28 +178,28 @@ const Filters = (props) => {
   const [timesFtr, setTimesFtr] = useState(false);
   const [outbound, setOutbound] = useState([0, 23]);
   const [inbound, setInbound] = useState([0, 23]);
-
-  function submit(keyword) {
-    if (typeof props.search === "function") {
-      props.search(keyword);
-    }
-    //console.log(keyword);
-  }
+  const search = props.search;
 
   function getTimes(outbound, inbound) {
     setOutbound(outbound);
     setInbound(inbound);
-    console.log(outbound, inbound);
+    //console.log(outbound, inbound);
   }
 
   function getAirlines(term) {
-    console.log(term);
+    //console.log(term);
   }
 
   useEffect(() => {
-    console.log("filter change");
+    //console.log("filter change");
+    function submit(keyword) {
+      if (typeof search === "function") {
+        search(keyword);
+      }
+      //console.log(keyword);
+    }
     submit([stopsFtr, priceFtr, timesFtr, airlinesFtr, outbound, inbound]);
-  }, [stopsFtr, airlinesFtr, priceFtr, timesFtr, outbound, inbound]);
+  }, [stopsFtr, airlinesFtr, priceFtr, timesFtr, outbound, inbound, search]);
 
   return (
     <FiltersBox>

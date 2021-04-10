@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Button } from "react-rainbow-components";
 
 export const CancelBox = styled.button`
   padding: 1px 1.28px 2.28px 2px;
@@ -18,10 +17,6 @@ export const Icons8Plus1 = styled.img`
   left: 0;
   top: 0;
 `;
-
-function cancel() {
-  console.log("bye");
-}
 
 const Cancel = (props) => {
   return (
