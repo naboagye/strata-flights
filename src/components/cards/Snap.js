@@ -6,7 +6,6 @@ import tw from "twin.macro";
 import Grid from "@material-ui/core/Grid";
 import { getYYYYMMDD } from "helpers/DurationConverter";
 import Hidden from "@material-ui/core/Hidden";
-//import SnapshotModal from "components/custom/SnapshotModal";
 
 export const Snapshot = styled.div`
   background-color: ${(props) => props.theme.colors.white};
