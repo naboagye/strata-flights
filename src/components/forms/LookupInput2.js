@@ -74,7 +74,7 @@ export default function LookupInput(props) {
       options={locations}
       filterOptions={filterOptions}
       noOptionsText="No found destination"
-      getOptionLabel={(option) => option.code}
+      getOptionLabel={(option) => `${option.city.name} (${option.code})`}
       renderOption={(option) => (
         <React.Fragment>
           {option.city.name} ({option.code})

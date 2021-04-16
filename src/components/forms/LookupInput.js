@@ -3,7 +3,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-//import styled from "styled-components";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
+import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import styled from "styled-components";
 import { matchSorter } from "match-sorter";
 
 // const FromBox = styled.div`
@@ -22,11 +26,27 @@ import { matchSorter } from "match-sorter";
 //   color: ${(props) => props.theme.colors.darkSlateGray};
 //   letter-spacing: 0.2px;
 // `;
+const useStyles = makeStyles((theme) => ({
+  icon: {
+    color: theme.palette.text.secondary,
+    marginRight: theme.spacing(2),
+  },
+}));
+
+export const FromBox = styled(TextField)`
+  background-color: ${(props) => props.theme.colors.white};
+  border-radius: 10px;
+  padding: 11px 26px 11px 26px;
+  position: relative;
+  border: 1px solid ${(props) => props.theme.colors.gainsboro};
+  width: 100%;
+`;
 
 export default function LookupInput(props) {
   //const [term, setTerm] = useState(props.term || "");
   const [locations, setLocations] = useState(start);
   const [query, setQuery] = useState(props.query || "a");
+  const classes = useStyles();
 
   useEffect(() => {
     const options = {
@@ -71,12 +91,22 @@ export default function LookupInput(props) {
       noOptionsText="No found destination"
       options={locations}
       filterOptions={filterOptions}
-      getOptionLabel={(option) => option.code}
+      getOptionLabel={(option) => `${option.city.name} (${option.code})`}
       getOptionSelected={(option, value) => option.id === value.id}
       renderOption={(option) => (
-        <React.Fragment>
-          {option.city.name} ({option.code})
-        </React.Fragment>
+        <Grid container alignItems="center">
+          <Grid item>
+            <LocationOnIcon className={classes.icon} />
+          </Grid>
+          <Grid item xs>
+            <span>
+              {option.city.name} ({option.code})
+            </span>
+            <Typography variant="body2" color="textSecondary">
+              {option.city.country && option.city.country.name}
+            </Typography>
+          </Grid>
+        </Grid>
       )}
       onInputChange={(e, value) => setQuery(value)}
       onChange={(e, value) => {
@@ -88,9 +118,8 @@ export default function LookupInput(props) {
         );
       }}
       renderInput={(params) => (
-        <TextField
+        <FromBox
           {...params}
-          size="medium"
           label={props.term}
           type="search"
           InputProps={{ ...params.InputProps, type: "search" }}

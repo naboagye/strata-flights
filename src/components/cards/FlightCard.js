@@ -177,11 +177,11 @@ const FlightCard = (props) => {
   const openLink = () => {
     window.open(props.link);
   };
-
+  //console.log(props.ibdStopDuration);
   const getAirline = async (code) => {
     await axios
       .get(
-        `http://airlabs.co/api/v7/airlines?api_key=4e9893ee-77ee-497e-bca6-0e3220c26fee&iata_code=${code}`
+        `https://airlabs.co/api/v7/airlines?api_key=4e9893ee-77ee-497e-bca6-0e3220c26fee&iata_code=${code}`
       )
       .then((response) => {
         //console.log(response.data.response[0].name);
@@ -192,7 +192,7 @@ const FlightCard = (props) => {
   const getAirline2 = async (code) => {
     await axios
       .get(
-        `http://airlabs.co/api/v7/airlines?api_key=4e9893ee-77ee-497e-bca6-0e3220c26fee&iata_code=${code}`
+        `https://airlabs.co/api/v7/airlines?api_key=4e9893ee-77ee-497e-bca6-0e3220c26fee&iata_code=${code}`
       )
       .then((response) => {
         //console.log(response.data.response[0].name);
@@ -252,8 +252,9 @@ const FlightCard = (props) => {
             <AirlineTxt>{airline1}</AirlineTxt>
             <TimeTxt>
               {props.ibdDptTime} - {props.ibdArrTime}
-              {props.ibdDptTime.substr(0, 2) >
-                props.ibdArrTime.substr(0, 2) && <sup>+1</sup>}
+              {props.ibdDptTime &&
+                props.ibdDptTime.substr(0, 2) >
+                  props.ibdArrTime.substr(0, 2) && <sup>+1</sup>}
             </TimeTxt>
             <AirlineTxt>{airline2}</AirlineTxt>
           </FlexWrapperOne>
@@ -276,11 +277,15 @@ const FlightCard = (props) => {
           <FlexWrapperThree>
             <TimeTxtTwo>{props.obdDuration}</TimeTxtTwo>
             <StopoverTxt>
-              {props.obdStopDuration} {props.obdStopAirportCode}
+              {props.obdStopDuration !== ""
+                ? `${props.obdStopDuration} ${props.obdStopAirportCode}`
+                : " - "}
             </StopoverTxt>
             <TimeTxtTwo>{props.ibdDuration}</TimeTxtTwo>
             <StopoverTxt>
-              {props.ibdStopDuration} {props.ibdStopAirportCode}
+              {props.ibdStopDuration !== undefined
+                ? `${props.ibdStopDuration} ${props.ibdStopAirportCode}`
+                : " - "}
             </StopoverTxt>
           </FlexWrapperThree>
         </Grid>

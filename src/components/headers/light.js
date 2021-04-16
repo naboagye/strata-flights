@@ -91,7 +91,7 @@ export default ({
   const defaultLinks = [
     <NavLinks key={1}>
       <NavLink href="/search">Search</NavLink>
-      <NavLink href="/#">Travel Ideas</NavLink>
+      <NavLink href="/travel-ideas">Travel Ideas</NavLink>
       <NavLink href="/#">Travel Advice</NavLink>
     </NavLinks>,
   ];

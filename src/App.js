@@ -101,29 +101,27 @@ import RestaurantLandingPage from "demos/RestaurantLandingPage.js";
 // import TermsOfServicePage from "pages/TermsOfService.js";
 // import PrivacyPolicyPage from "pages/PrivacyPolicy.js";
 import Search from "pages/Search.js";
-import SearchCard from "components/cards/SearchCard.js";
+//import SearchCard from "components/cards/SearchCard.js";
 
-import ComponentRenderer from "ComponentRenderer.js";
+//import ComponentRenderer from "ComponentRenderer.js";
 //import MainLandingPage from "MainLandingPage.js";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import TravelIdeas from "pages/TravelIdeas.js";
 
 export default function App() {
   // return <AnimationRevealPage disabled></AnimationRevealPage>;
   return (
     <Router>
       <Switch>
-        <Route path="/components/:type/:subtype/:name">
-          <ComponentRenderer />
-        </Route>
         <Route path="/search">
           <Search />
         </Route>
-        <Route path="/hi">
-          <SearchCard />
-        </Route>
-        <Route path="/">
+        <Route exact path="/">
           <RestaurantLandingPage />
+        </Route>
+        <Route path="/travel-ideas">
+          <TravelIdeas />
         </Route>
       </Switch>
     </Router>

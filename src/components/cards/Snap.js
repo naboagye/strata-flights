@@ -594,11 +594,13 @@ const SnapshotComponent = (props) => {
   const [data, setData] = useState("");
   const [cases, setCases] = useState("");
   const [diffs, setDiffs] = useState("");
+  const [lockdowns, setLockdowns] = useState("");
   //const [imgLink, setImgLink] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   //const [clicked, setClicked] = useState(false);
 
-  const openLink = () => {
+  const openLink = (e) => {
+    e.stopPropagation();
     window.open("https://covid19.who.int/table");
   };
 
@@ -625,12 +627,15 @@ const SnapshotComponent = (props) => {
           axios.get(
             `https://restcountries.eu/rest/v2/alpha/${code}?fields=flag`
           ),
+          axios.get(
+            `https://0glnns5f5h.execute-api.eu-west-2.amazonaws.com/dev?code=${code}&date=${date}`
+          ),
         ])
         .then((response) => {
           setData(response[0].data.body.Item);
-
           setCases(response[1].data.body.Item.Item);
           setDiffs(response[1].data.body);
+          setLockdowns(response[3].data.body.Item);
           //setImgLink(response[2].data.flag);
         });
     };
@@ -733,7 +738,10 @@ const SnapshotComponent = (props) => {
                       ? data.links.map((link, index) => (
                           <tr
                             key={index}
-                            onClick={() => window.open(link, "_blank")}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              window.open(link, "_blank");
+                            }}
                           >
                             <td>
                               <Link>External Link {index + 1}</Link>
@@ -742,7 +750,10 @@ const SnapshotComponent = (props) => {
                               <img
                                 alt=""
                                 src="https://static.overlay-tech.com/assets/866babf3-93de-44e3-bd34-eccbd59204ba.png"
-                                onClick={() => window.open(link, "_blank")}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  window.open(link, "_blank");
+                                }}
                               />
                             </td>
                           </tr>
@@ -841,8 +852,8 @@ const SnapshotComponent = (props) => {
                 <WrapperSix>
                   <NewCases25>
                     <Num24hrsLblTwo>Lockdown Status</Num24hrsLblTwo>
-                    <DailyNumTwo>Yes</DailyNumTwo>
-                    <DailyNumDiffTwo>Ending: 05/05/21</DailyNumDiffTwo>
+                    <DailyNumTwo>{lockdowns.fact}</DailyNumTwo>
+                    <DailyNumDiffTwo>Ending: {lockdowns.date}</DailyNumDiffTwo>
                   </NewCases25>
                   <WeeklyCasesTwo>
                     <WeekLblTwo>Quarantine Status</WeekLblTwo>
