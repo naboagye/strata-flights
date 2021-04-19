@@ -7,6 +7,10 @@ import Grid from "@material-ui/core/Grid";
 import { getYYYYMMDD } from "helpers/DurationConverter";
 import Hidden from "@material-ui/core/Hidden";
 
+import up_icon from "images/up_icon.png";
+import down_icon from "images/down_icon.png";
+import external_link_icon from "images/external_link_icon.png";
+
 export const Snapshot = styled.div`
   background-color: ${(props) => props.theme.colors.white};
   border-radius: 25px;
@@ -580,7 +584,9 @@ export const UpdateDate = styled.p`
 const containerStyles = {
   width: "1100px",
 };
-const StyledCard = styled(Card)``;
+const StyledCard = styled(Card)`
+  margin-bottom: 10px;
+`;
 
 export const Link = tw.a`
   text-lg my-2 lg:text-sm  lg:my-0
@@ -614,7 +620,6 @@ const SnapshotComponent = (props) => {
   };
 
   useEffect(() => {
-    //setCode(props.code);
     const fetchData = async () => {
       await axios
         .all([
@@ -625,9 +630,6 @@ const SnapshotComponent = (props) => {
             `https://hmbrr2y0jg.execute-api.eu-west-2.amazonaws.com/dev?code=${code}&date=${date}`
           ),
           axios.get(
-            `https://restcountries.eu/rest/v2/alpha/${code}?fields=flag`
-          ),
-          axios.get(
             `https://0glnns5f5h.execute-api.eu-west-2.amazonaws.com/dev?code=${code}&date=${date}`
           ),
         ])
@@ -635,13 +637,10 @@ const SnapshotComponent = (props) => {
           setData(response[0].data.body.Item);
           setCases(response[1].data.body.Item.Item);
           setDiffs(response[1].data.body);
-          setLockdowns(response[3].data.body.Item);
-          //setImgLink(response[2].data.flag);
+          setLockdowns(response[2].data.body.Item);
         });
     };
     fetchData();
-    //console.log("travel info");
-    //console.log(code);
   }, [code, date]);
 
   return (
@@ -679,15 +678,9 @@ const SnapshotComponent = (props) => {
                       <DailyNumDiff>{diffs.casesDiff}</DailyNumDiff>
                     </NewCases24>
                     {diffs.casesDiffInd === "up" ? (
-                      <Icons8Up1
-                        alt=""
-                        src="https://static.overlay-tech.com/assets/e6324efc-91d9-41f8-8400-c2116e8cae30.png"
-                      />
+                      <Icons8Up1 alt="up" src={up_icon} />
                     ) : (
-                      <Icons8Down1
-                        alt=""
-                        src="https://static.overlay-tech.com/assets/f89e0724-5dc1-47f9-bc8f-4b16576cf21d.png"
-                      />
+                      <Icons8Down1 alt="down" src={down_icon} />
                     )}
                   </RelativeWrapperThree>
                   <RelativeWrapperThree>
@@ -699,15 +692,9 @@ const SnapshotComponent = (props) => {
                       </RelativeWrapperOne>
                     </WeeklyCases>
                     {diffs.rateDiffInd === "up" ? (
-                      <Icons8Up1
-                        alt=""
-                        src="https://static.overlay-tech.com/assets/e6324efc-91d9-41f8-8400-c2116e8cae30.png"
-                      />
+                      <Icons8Up1 alt="" src={up_icon} />
                     ) : (
-                      <Icons8Down1
-                        alt=""
-                        src="https://static.overlay-tech.com/assets/f89e0724-5dc1-47f9-bc8f-4b16576cf21d.png"
-                      />
+                      <Icons8Down1 alt="down" src={down_icon} />
                     )}
                   </RelativeWrapperThree>
                 </FlexWrapperTwo>
@@ -721,7 +708,7 @@ const SnapshotComponent = (props) => {
                     <Icons8ExternalLink1
                       onClick={openLink}
                       alt=""
-                      src="https://static.overlay-tech.com/assets/a50127af-2736-4735-bcb8-e3109e0693df.png"
+                      src={external_link_icon}
                     />
                   </Grid>
                 </Grid>
@@ -748,8 +735,8 @@ const SnapshotComponent = (props) => {
                             </td>
                             <td>
                               <img
-                                alt=""
-                                src="https://static.overlay-tech.com/assets/866babf3-93de-44e3-bd34-eccbd59204ba.png"
+                                alt="external"
+                                src={external_link_icon}
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   window.open(link, "_blank");
@@ -801,15 +788,9 @@ const SnapshotComponent = (props) => {
                       <DailyNumDiffModal>{diffs.casesDiff}</DailyNumDiffModal>
                     </NewCases24Modal>
                     {diffs.casesDiffInd === "up" ? (
-                      <Icons8Up1Modal
-                        alt=""
-                        src="https://static.overlay-tech.com/assets/e6324efc-91d9-41f8-8400-c2116e8cae30.png"
-                      />
+                      <Icons8Up1Modal alt="up" src={up_icon} />
                     ) : (
-                      <Icons8Down1Modal
-                        alt=""
-                        src="https://static.overlay-tech.com/assets/f89e0724-5dc1-47f9-bc8f-4b16576cf21d.png"
-                      />
+                      <Icons8Down1Modal alt="down" src={down_icon} />
                     )}
                   </RWrapperFour>
                   <RWrapperFour>
@@ -821,15 +802,9 @@ const SnapshotComponent = (props) => {
                       </RWrapperOne>
                     </WeeklyCasesModal>
                     {diffs.rateDiffInd === "up" ? (
-                      <Icons8Up1Modal
-                        alt=""
-                        src="https://static.overlay-tech.com/assets/e6324efc-91d9-41f8-8400-c2116e8cae30.png"
-                      />
+                      <Icons8Up1Modal alt="up" src={up_icon} />
                     ) : (
-                      <Icons8Down1Modal
-                        alt=""
-                        src="https://static.overlay-tech.com/assets/f89e0724-5dc1-47f9-bc8f-4b16576cf21d.png"
-                      />
+                      <Icons8Down1Modal alt="down" src={down_icon} />
                     )}
                   </RWrapperFour>
                 </WrapperSix>
@@ -843,8 +818,8 @@ const SnapshotComponent = (props) => {
                 <Grid item>
                   <Icons8ExternalLink1Modal
                     onClick={openLink}
-                    alt=""
-                    src="https://static.overlay-tech.com/assets/a50127af-2736-4735-bcb8-e3109e0693df.png"
+                    alt="external"
+                    src={external_link_icon}
                   />
                 </Grid>
               </Grid>
@@ -875,8 +850,8 @@ const SnapshotComponent = (props) => {
                 <Grid item>
                   <Icons8ExternalLink1Modal
                     onClick={openLink}
-                    alt=""
-                    src="https://static.overlay-tech.com/assets/a50127af-2736-4735-bcb8-e3109e0693df.png"
+                    alt="external"
+                    src={external_link_icon}
                   />
                 </Grid>
               </Grid>
@@ -909,8 +884,8 @@ const SnapshotComponent = (props) => {
                                 </td>
                                 <td>
                                   <img
-                                    alt=""
-                                    src="https://static.overlay-tech.com/assets/866babf3-93de-44e3-bd34-eccbd59204ba.png"
+                                    alt="external"
+                                    src={external_link_icon}
                                     onClick={() => window.open(link, "_blank")}
                                   />
                                 </td>

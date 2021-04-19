@@ -85,7 +85,7 @@ export default () => {
     const fetchLocations = async () => {
       await axios
         .get(
-          `https://tequila-api.kiwi.com/locations/topdestinations?term=london_gb&locale=en-US&limit=2&sort=name&active_only=true&source_popularity=searches`,
+          `https://tequila-api.kiwi.com/locations/topdestinations?term=london_gb&locale=en-US&limit=2&sort=name&active_only=true&source_popularity=bookings`,
           options
         )
         .then((response) => {

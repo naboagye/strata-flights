@@ -108,6 +108,8 @@ import Search from "pages/Search.js";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import TravelIdeas from "pages/TravelIdeas.js";
+import EmailSuccess from "pages/EmailSuccess.js";
+import EmailFailure from "pages/EmailFailure.js";
 
 export default function App() {
   // return <AnimationRevealPage disabled></AnimationRevealPage>;
@@ -122,6 +124,12 @@ export default function App() {
         </Route>
         <Route path="/travel-ideas">
           <TravelIdeas />
+        </Route>
+        <Route path="/success">
+          <EmailSuccess />
+        </Route>
+        <Route path="/failure">
+          <EmailFailure />
         </Route>
       </Switch>
     </Router>

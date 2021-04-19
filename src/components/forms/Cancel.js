@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import cancel from "images/cancel.png";
 
 export const CancelBox = styled.button`
   padding: 1px 1.28px 2.28px 2px;
@@ -22,10 +23,7 @@ const Cancel = (props) => {
   return (
     <CancelBox onClick={props.onClick}>
       <CancelBtn />
-      <Icons8Plus1
-        alt=""
-        src="https://static.overlay-tech.com/assets/100277fc-1288-490b-82ee-9f87207741ff.png"
-      />
+      <Icons8Plus1 alt="search" src={cancel} />
     </CancelBox>
   );
 };

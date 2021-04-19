@@ -24,6 +24,8 @@ export function Url(
     tripClass = "F";
   }
 
+  passengersNum = passengersNum.substr(0, 1);
+
   if (passengersNum > 1) {
     num = "0%2C0";
   }

@@ -11,6 +11,7 @@ import SnapshotCard from "components/cards/SnapshotCard.js";
 import Sort from "components/forms/Sort";
 import Snap from "components/cards/Snap.js";
 import tw from "twin.macro";
+import switch_icon from "images/switch-circle.png";
 
 export const SearchContainer = styled.div`
   background-color: ${(props) => props.theme.colors.white};
@@ -291,7 +292,10 @@ const MaxSearch = (props) => {
               />
             </RoundTripFilter>
             <RoundTripFilter>
-              <DropDown search={getPassengerNum} options={["1", "2"]} />
+              <DropDown
+                search={getPassengerNum}
+                options={["1 Adult", "2 Adults"]}
+              />
             </RoundTripFilter>
             <RoundTripFilter>
               <DropDown
@@ -309,10 +313,7 @@ const MaxSearch = (props) => {
                 <LookupInput term={location} search={search2} />
               </ToBox>
               <SwitchCircle onClick={switchLocations}>
-                <img
-                  alt=""
-                  src="https://static.overlay-tech.com/assets/8a70bca2-7ef8-44ee-b862-9cae9d136e96.png"
-                />
+                <img alt="switch" src={switch_icon} />
               </SwitchCircle>
             </RelativeWrapperOne>
           </FlexWrapperTwo>

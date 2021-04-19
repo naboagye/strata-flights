@@ -12,8 +12,8 @@ export default class Example extends React.Component {
     if (typeof this.props.search === "function") {
       this.props.search(keyword);
     }
-    //console.log(this.state.date);
   };
+
   containerStyles = {
     maxWidth: "100%",
     isBare: true,

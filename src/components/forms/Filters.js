@@ -39,7 +39,7 @@ export const StopsFtr = styled.div`
       : props.theme.colors.white};
   border: 1px solid ${(props) => props.theme.colors.gainsboro};
 `;
-export const MaxStops = styled.p`
+export const FtrLabel = styled.p`
   color: ${(props) =>
     props.selected
       ? props.theme.colors.white
@@ -209,7 +209,7 @@ const Filters = (props) => {
           setStopsFtr({ name: stopsFtr.name, value: true });
         }}
       >
-        <MaxStops selected={stopsFtr.value}>Direct flights only</MaxStops>
+        <FtrLabel selected={stopsFtr.value}>Direct flights only</FtrLabel>
         {stopsFtr.value && (
           <StyledCancel
             onClick={(e) => {
@@ -220,7 +220,7 @@ const Filters = (props) => {
         )}
       </StopsFtr>
       <PriceFtr selected={priceFtr} onClick={() => setPriceFtr(true)}>
-        <MaxStops selected={priceFtr}>Under £500</MaxStops>
+        <FtrLabel selected={priceFtr}>Under £500</FtrLabel>
         {priceFtr && (
           <StyledCancel
             onClick={(e) => {
@@ -235,7 +235,7 @@ const Filters = (props) => {
         onClick={() => setTimesFtr(true)}
         search={getTimes}
       >
-        <MaxStops selected={timesFtr}>Times</MaxStops>
+        <FtrLabel selected={timesFtr}>Times</FtrLabel>
         {timesFtr && (
           <StyledCancel
             onClick={(e) => {
@@ -246,7 +246,7 @@ const Filters = (props) => {
         )}
       </PopoverSlider>
       <AirlinesFtr selected={airlinesFtr} onClick={() => setAirlinesFtr(true)}>
-        <MaxStops selected={airlinesFtr}>Airlines</MaxStops>
+        <FtrLabel selected={airlinesFtr}>Airlines</FtrLabel>
         {airlinesFtr && (
           <StyledCancel
             onClick={(e) => {
@@ -256,12 +256,13 @@ const Filters = (props) => {
           />
         )}
       </AirlinesFtr>
-      <WifiFtr>
-        <MaxStops>More</MaxStops>
-      </WifiFtr>
+
       <PopoverCheckbox search={getAirlines}>
-        <MaxStops selected={timesFtr}>Times</MaxStops>
+        <FtrLabel selected={timesFtr}>Duration</FtrLabel>
       </PopoverCheckbox>
+      <WifiFtr>
+        <FtrLabel>More</FtrLabel>
+      </WifiFtr>
     </FiltersBox>
   );
 };

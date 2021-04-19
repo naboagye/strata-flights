@@ -6,6 +6,8 @@ import { useHistory } from "react-router-dom";
 import DropDown from "components/forms/Dropdown";
 import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
+import switch_icon from "images/switch-circle.png";
+import search_icon from "images/search-glass.png";
 
 export const SearchContainer = styled.div`
   background-color: ${(props) => props.theme.colors.snow};
@@ -214,8 +216,6 @@ const SearchContainerComponent = (props) => {
   let history = useHistory();
 
   function submit(e) {
-    //console.log(oneWayOrReturn, passengersNum, tripClass);
-    //console.log(fromDate, toDate);
     history.push({
       pathname: "/search",
       state: {
@@ -284,7 +284,10 @@ const SearchContainerComponent = (props) => {
             <RoundTripFilter
               onClick={(e) => setPassengersNum(e.target.innerText)}
             >
-              <DropDown search={getPassengerNum} options={["1", "2"]} />
+              <DropDown
+                search={getPassengerNum}
+                options={["1 Adult", "2 Adults"]}
+              />
             </RoundTripFilter>
           </Grid>
           <Grid item xs={12} sm={4}>
@@ -302,10 +305,7 @@ const SearchContainerComponent = (props) => {
           </FromBox>
           <Hidden xsDown>
             <SwitchCircle>
-              <img
-                alt=""
-                src="https://static.overlay-tech.com/assets/947a335b-66b9-4f2a-85d9-efaabec6671a.png"
-              />
+              <img alt="switch" src={switch_icon} />
             </SwitchCircle>
           </Hidden>
         </Grid>
@@ -331,10 +331,7 @@ const SearchContainerComponent = (props) => {
         </Grid>
         <Grid item xs={12} sm={2}>
           <SearchBtn onClick={submit}>
-            <SearchIcon
-              alt=""
-              src="https://static.overlay-tech.com/assets/6ca73bc8-b5fc-4fee-8193-7ac133bc88cf.png"
-            />
+            <SearchIcon alt="" src={search_icon} />
           </SearchBtn>
         </Grid>
       </Grid>

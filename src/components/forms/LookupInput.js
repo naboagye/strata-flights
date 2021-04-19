@@ -60,13 +60,11 @@ export default function LookupInput(props) {
             options
           )
           .then((response) => {
-            //console.log(response.data.locations);
             setLocations(response.data.locations);
           });
       }
     };
     fetchData();
-    //console.log("get locations");
   }, [query]);
 
   function submit(airport, country_code) {

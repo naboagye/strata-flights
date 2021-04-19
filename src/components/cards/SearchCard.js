@@ -17,12 +17,13 @@ import noresults from "images/noresults.svg";
 
 const StyledCard = styled(Card)`
   min-height: 200px;
+  margin: 10px 0 10px 0;
 `;
 
 //const Column = tw.div`w-full max-w-md mx-auto md:max-w-none md:mx-0`;
 
 export default (props) => {
-  const [books, setBooks] = useState(null);
+  const [flights, setFlights] = useState(null);
   const [isLoading, setLoading] = useState(props.isLoading);
 
   // console.log(
@@ -72,12 +73,11 @@ export default (props) => {
           options
         )
         .then((response) => {
-          setBooks(response.data.data);
+          setFlights(response.data.data);
           setLoading(false);
         });
     };
     fetchData();
-    //console.log("ran");
   }, [props]);
 
   if (isLoading) {
@@ -85,7 +85,7 @@ export default (props) => {
   } else {
     return (
       <div>
-        {books.length === 0 ? (
+        {flights.length === 0 ? (
           <div className="rainbow-p-around_large">
             <Card title="Oops! No results found for your search. Please try again!">
               <img
@@ -96,47 +96,47 @@ export default (props) => {
             </Card>
           </div>
         ) : (
-          books.map((book, index) => {
-            //console.log(book.route[book.length - 1].local_departure);
+          flights.map((flight, index) => {
             if (props.oneWayOrReturn === "Round trip") {
               return (
                 <StyledCard key={index}>
                   <FlightCard
-                    obdDptTime={GetISOTime(book.route[0].local_departure)}
+                    obdDptTime={GetISOTime(flight.route[0].local_departure)}
                     obdArrTime={
-                      checkStops(book, "num", "obd") === "direct"
+                      checkStops(flight, "num", "obd") === "direct"
                         ? GetISOTimeArr(
-                            book.route[0].local_arrival,
-                            book.route[0].local_departure
+                            flight.route[0].local_arrival,
+                            flight.route[0].local_departure
                           )
-                        : GetISOTime(book.route[1].local_arrival)
+                        : GetISOTime(flight.route[1].local_arrival)
                     }
-                    obdDuration={DurTime(book.duration.departure)}
-                    obdAirline={book.route[0].airline}
-                    obdDptAirportCode={book.flyFrom}
-                    obdArrAirportCode={book.flyTo}
-                    obdNumStops={checkStops(book, "num", "obd")}
-                    obdStopDuration={checkStops(book, "dur", "obd")}
-                    obdStopAirportCode={checkStops(book, "code", "obd")}
+                    obdDuration={DurTime(flight.duration.departure)}
+                    obdAirline={flight.route[0].airline}
+                    obdDptAirportCode={flight.flyFrom}
+                    obdArrAirportCode={flight.flyTo}
+                    obdNumStops={checkStops(flight, "num", "obd")}
+                    obdStopDuration={checkStops(flight, "dur", "obd")}
+                    obdStopAirportCode={checkStops(flight, "code", "obd")}
                     ibdDptTime={
-                      checkStops(book, "num", "obd") === "direct"
+                      checkStops(flight, "num", "obd") === "direct"
                         ? GetISOTime(
-                            book.route[book.route.length - 1].local_departure
+                            flight.route[flight.route.length - 1]
+                              .local_departure
                           )
-                        : GetISOTime(book.route[2].local_departure)
+                        : GetISOTime(flight.route[2].local_departure)
                     }
                     ibdArrTime={GetISOTime(
-                      book.route[book.route.length - 1].local_arrival
+                      flight.route[flight.route.length - 1].local_arrival
                     )}
-                    ibdDuration={DurTime(book.duration.return)}
-                    ibdAirline={isLoading ? "" : book.route[1].airline}
-                    ibdDptAirportCode={book.flyTo}
-                    ibdArrAirportCode={book.flyFrom}
-                    ibdNumStops={checkStops(book, "num", "ibd")}
-                    ibdStopDuration={checkStops(book, "dur", "ibd")}
-                    ibdStopAirportCode={checkStops(book, "code", "ibd")}
-                    price={book.price}
-                    link={book.deep_link}
+                    ibdDuration={DurTime(flight.duration.return)}
+                    ibdAirline={isLoading ? "" : flight.route[1].airline}
+                    ibdDptAirportCode={flight.flyTo}
+                    ibdArrAirportCode={flight.flyFrom}
+                    ibdNumStops={checkStops(flight, "num", "ibd")}
+                    ibdStopDuration={checkStops(flight, "dur", "ibd")}
+                    ibdStopAirportCode={checkStops(flight, "code", "ibd")}
+                    price={flight.price}
+                    link={flight.deep_link}
                   />
                 </StyledCard>
               );
@@ -144,17 +144,17 @@ export default (props) => {
               return (
                 <StyledCard key={index}>
                   <FlightCard
-                    obdDptTime={GetISOTime(book.route[0].local_departure)}
-                    obdArrTime={GetISOTime(book.route[0].local_arrival)}
-                    obdDuration={DurTime(book.duration.departure)}
-                    obdAirline={book.route[0].airline}
-                    obdDptAirportCode={book.route[0].flyFrom}
-                    obdArrAirportCode={book.route[0].flyTo}
-                    obdNumStops={NumStops(book.has_airport_change)}
-                    obdStopDuration={checkStops(book, "dur", "obd")}
-                    obdStopAirportCode={checkStops(book, "code", "obd")}
-                    price={book.price}
-                    link={book.deep_link}
+                    obdDptTime={GetISOTime(flight.route[0].local_departure)}
+                    obdArrTime={GetISOTime(flight.route[0].local_arrival)}
+                    obdDuration={DurTime(flight.duration.departure)}
+                    obdAirline={flight.route[0].airline}
+                    obdDptAirportCode={flight.route[0].flyFrom}
+                    obdArrAirportCode={flight.route[0].flyTo}
+                    obdNumStops={NumStops(flight.has_airport_change)}
+                    obdStopDuration={checkStops(flight, "dur", "obd")}
+                    obdStopAirportCode={checkStops(flight, "code", "obd")}
+                    price={flight.price}
+                    link={flight.deep_link}
                   />
                 </StyledCard>
               );

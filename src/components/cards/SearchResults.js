@@ -12,6 +12,8 @@ import Snap from "components/cards/Snap.js";
 import tw from "twin.macro";
 import { Card } from "react-rainbow-components";
 import Hidden from "@material-ui/core/Hidden";
+import switch_icon from "images/switch-circle.png";
+import EmailUpdateMini from "components/forms/EmailUpdateMini";
 
 export const SearchContainer = styled.div`
   background-color: ${(props) => props.theme.colors.white};
@@ -190,7 +192,7 @@ const RightColumn = tw.div`relative mt-12 lg:mt-0 flex flex-col`;
 const TwoColumn = tw.div`flex flex-col lg:flex-row  max-w-screen-xl mx-auto py-20 md:py-24`;
 const Container = tw.div`relative`;
 
-const MaxSearch = (props) => {
+const SearchResults = (props) => {
   const [term, setTerm] = useState(props.from || "");
   const [location, setLocation] = useState(props.to || "");
   const [fromDate, setFromDate] = useState(props.fromDate || "");
@@ -280,7 +282,10 @@ const MaxSearch = (props) => {
   return (
     <Container>
       <TwoColumn>
-        <LeftColumn>{code !== "" && <Snap code={code} />}</LeftColumn>
+        <LeftColumn>
+          {code !== "" && <Snap code={code} />}
+          <EmailUpdateMini code={code} />
+        </LeftColumn>
         <RightColumn>
           <StyledCard>
             <SearchContainer>
@@ -296,7 +301,10 @@ const MaxSearch = (props) => {
                   </Grid>
                   <Grid item xs={12} sm={4}>
                     <RoundTripFilter>
-                      <DropDown search={getPassengerNum} options={["1", "2"]} />
+                      <DropDown
+                        search={getPassengerNum}
+                        options={["1 Adult", "2 Adults"]}
+                      />
                     </RoundTripFilter>
                   </Grid>
                   <Grid item xs={12} sm={4}>
@@ -320,10 +328,7 @@ const MaxSearch = (props) => {
                 </Grid>
                 <Grid item xs={12} sm={1}>
                   <SwitchCircle onClick={switchLocations}>
-                    <img
-                      alt=""
-                      src="https://static.overlay-tech.com/assets/8a70bca2-7ef8-44ee-b862-9cae9d136e96.png"
-                    />
+                    <img alt="switch" src={switch_icon} />
                   </SwitchCircle>
                 </Grid>
                 <Grid item xs={12} sm={3}>
@@ -374,4 +379,4 @@ const MaxSearch = (props) => {
   );
 };
 
-export default MaxSearch;
+export default SearchResults;
