@@ -65,15 +65,10 @@ export default () => {
   }
 
   useEffect(() => {
-    const options = {
-      headers: { apiKey: "H9cYBRBqvEQ9jTIoSMoKb-8ft15P0dCz" },
-    };
-
     const fetchLocations = async () => {
       await axios
         .get(
-          `https://tequila-api.kiwi.com/locations/topdestinations?term=london_gb&locale=en-US&limit=9&sort=name&active_only=true&source_popularity=searches`,
-          options
+          `https://xtogjhen60.execute-api.eu-west-2.amazonaws.com/dev/locations/topdestinations?term=london_gb&locale=en-US&limit=9&sort=name&active_only=true&source_popularity=searches`
         )
         .then((response) => {
           //console.log(response.data.locations);
@@ -83,11 +78,10 @@ export default () => {
           locs.forEach((obj) => {
             Promise.all([
               axios.get(
-                `https://tequila-api.kiwi.com/aggregation_search/price_per_city?fly_from=LON&fly_to=${obj.code}&date_from=05%2F05%2F2021&date_to=05%2F05%2F2021&max_fly_duration=20&flight_type=round&adults=1&limit=30`,
-                options
+                `https://xtogjhen60.execute-api.eu-west-2.amazonaws.com/dev/aggregation_search/price_per_city?fly_from=LON&fly_to=${obj.code}&date_from=05%2F05%2F2021&date_to=05%2F05%2F2021&max_fly_duration=20&flight_type=round&adults=1&limit=30`
               ),
               axios.get(
-                `https://api.unsplash.com/search/photos/?query=${obj.name}&client_id=KjZMSIfsRRnNuMfCUJPVdEu39HfEGwNMfJSzHTj14ys`
+                `https://nqtf2qcede.execute-api.eu-west-2.amazonaws.com/dev/search/photos?query=${obj.name}`
               ),
             ])
               .then((response) => {

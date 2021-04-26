@@ -49,9 +49,6 @@ export default (props) => {
 
   useEffect(() => {
     setLoading(props.isLoading);
-    const options = {
-      headers: { apiKey: "H9cYBRBqvEQ9jTIoSMoKb-8ft15P0dCz" },
-    };
     const fetchData = async () => {
       await axios
         .get(
@@ -69,8 +66,7 @@ export default (props) => {
             props.outbound,
             props.inbound,
             props.sort
-          ),
-          options
+          )
         )
         .then((response) => {
           setFlights(response.data.data);

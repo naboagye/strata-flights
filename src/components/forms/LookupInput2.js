@@ -1,63 +1,35 @@
 /* eslint-disable no-use-before-define */
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-//import TextField from "@material-ui/core/TextField";
-//import Input from "@material-ui/core/Input";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-//import styled from "styled-components";
 import { matchSorter } from "match-sorter";
 import tw from "twin.macro";
 
-// const FromBox = styled.div`
-//   background-color: ${(props) => props.theme.colors.white};
-//   border-radius: 10px;
-//   position: relative;
-//   border: 1px solid ${(props) => props.theme.colors.gainsboro};
-//   padding: 23px 23px 23px 29px;
-// `;
-
 const Input = tw.input`border-2 px-5 py-3 rounded focus:outline-none font-medium transition duration-300 hocus:border-primary-500 w-full`;
 
-// const FromLbl = styled.input`
-//   font-family: ${(props) => props.theme.fonts.nunito18SemiBold.family};
-//   font-size: ${(props) => props.theme.fonts.nunito18SemiBold.size};
-//   font-weight: ${(props) => props.theme.fonts.nunito18SemiBold.weight};
-//   line-height: ${(props) => props.theme.fonts.nunito18SemiBold.lineHeight};
-//   color: ${(props) => props.theme.colors.darkSlateGray};
-//   letter-spacing: 0.2px;
-// `;
-
 export default function LookupInput(props) {
-  //const [term, setTerm] = useState(props.term || "");
   const [locations, setLocations] = useState(start);
   const [query, setQuery] = useState(props.query || "a");
 
   useEffect(() => {
-    const options = {
-      headers: { apiKey: "H9cYBRBqvEQ9jTIoSMoKb-8ft15P0dCz" },
-    };
     const fetchData = async () => {
       if (query !== "") {
         await axios
           .get(
-            `https://tequila-api.kiwi.com/locations/query?term=${query}&locale=en-US&location_types=airport&limit=50&active_only=true`,
-            options
+            `https://xtogjhen60.execute-api.eu-west-2.amazonaws.com/dev/locations/query?term=${query}&locale=en-US&location_types=airport&limit=50&active_only=true`
           )
           .then((response) => {
-            //console.log(response.data.locations);
             setLocations(response.data.locations);
           });
       }
     };
     fetchData();
-    //console.log("get locations");
   }, [query]);
 
   function submit(airport, country_code, name) {
     if (typeof props.search === "function") {
       props.search(airport, country_code, name);
     }
-    //console.log(keyword);
   }
 
   const filterOptions = (options, { inputValue }) =>
@@ -93,7 +65,6 @@ export default function LookupInput(props) {
   );
 }
 
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const start = [
   {
     id: "JFK",

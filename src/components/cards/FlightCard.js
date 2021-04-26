@@ -181,7 +181,7 @@ const FlightCard = (props) => {
   const getAirline = async (code) => {
     await axios
       .get(
-        `https://airlabs.co/api/v7/airlines?api_key=4e9893ee-77ee-497e-bca6-0e3220c26fee&iata_code=${code}`
+        `https://kmp2mtle3m.execute-api.eu-west-2.amazonaws.com/dev/airlines?iata_code=${code}`
       )
       .then((response) => {
         //console.log(response.data.response[0].name);
@@ -192,7 +192,7 @@ const FlightCard = (props) => {
   const getAirline2 = async (code) => {
     await axios
       .get(
-        `https://airlabs.co/api/v7/airlines?api_key=4e9893ee-77ee-497e-bca6-0e3220c26fee&iata_code=${code}`
+        `https://kmp2mtle3m.execute-api.eu-west-2.amazonaws.com/dev/airlines?iata_code=${code}`
       )
       .then((response) => {
         //console.log(response.data.response[0].name);

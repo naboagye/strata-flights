@@ -212,9 +212,6 @@ const SearchResults = (props) => {
   const [inbound, setInbound] = useState([0, 23]);
   const [sort, setSort] = useState("price");
   //const [loadCard, setLoadCard] = useState(term === "" ? false : true);
-  const options = {
-    headers: { apiKey: "H9cYBRBqvEQ9jTIoSMoKb-8ft15P0dCz" },
-  };
 
   function search(term, code) {
     //console.log(term);
@@ -270,8 +267,7 @@ const SearchResults = (props) => {
     setLocation(term);
     await axios
       .get(
-        `https://tequila-api.kiwi.com/locations/id?id=${term}&locale=en-US&location_types=airport&limit=50&active_only=true`,
-        options
+        `https://xtogjhen60.execute-api.eu-west-2.amazonaws.com/dev/locations/id?id=${term}&locale=en-US&location_types=airport&limit=50&active_only=true`
       )
       .then((response) => {
         //console.log(response.data.locations);

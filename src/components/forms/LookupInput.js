@@ -49,15 +49,11 @@ export default function LookupInput(props) {
   const classes = useStyles();
 
   useEffect(() => {
-    const options = {
-      headers: { apiKey: "H9cYBRBqvEQ9jTIoSMoKb-8ft15P0dCz" },
-    };
     const fetchData = async () => {
       if (query !== "") {
         await axios
           .get(
-            `https://tequila-api.kiwi.com/locations/query?term=${query}&locale=en-US&location_types=airport&limit=50&active_only=true`,
-            options
+            `https://xtogjhen60.execute-api.eu-west-2.amazonaws.com/dev/locations/query?term=${query}&locale=en-US&location_types=airport&limit=50&active_only=true`
           )
           .then((response) => {
             setLocations(response.data.locations);
