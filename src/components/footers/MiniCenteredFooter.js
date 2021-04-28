@@ -41,7 +41,7 @@ export default () => {
             <Link href="/">Home</Link>
             <Link href="/search">Search</Link>
             <Link href="/travel-ideas">Travel Ideas</Link>
-            <Link href="/#">Travel Advice</Link>
+            <Link href="/travel-advice">Travel Advice</Link>
           </LinksContainer>
           <SocialLinksContainer>
             <SocialLink href="https://facebook.com">

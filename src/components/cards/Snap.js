@@ -10,6 +10,8 @@ import Hidden from "@material-ui/core/Hidden";
 import up_icon from "images/up_icon.png";
 import down_icon from "images/down_icon.png";
 import external_link_icon from "images/external_link_icon.png";
+import { SectionHeading } from "components/misc/Headings.js";
+import SnapPlaceholder from "images/snap_placeholder.svg";
 
 export const Snapshot = styled.div`
   background-color: ${(props) => props.theme.colors.white};
@@ -594,6 +596,10 @@ export const Link = tw.a`
   pb-1 border-b-2 border-transparent hocus:text-primary-500
 `;
 
+const Placeholder = tw(
+  SectionHeading
+)`mt-4  text-left text-3xl sm:text-4xl lg:text-5xl text-center  leading-tight`;
+
 const SnapshotComponent = (props) => {
   const date = getYYYYMMDD(new Date());
   const code = props.code;
@@ -638,121 +644,140 @@ const SnapshotComponent = (props) => {
           setCases(response[1].data.body.Item.Item);
           setDiffs(response[1].data.body);
           setLockdowns(response[2].data.body.Item);
+        })
+        .catch((err) => {
+          if (err.response) {
+            setData("N/A");
+            setCases("N/A");
+            setDiffs("N/A");
+            setLockdowns("N/A");
+          }
         });
     };
-    fetchData();
+    code !== "" && fetchData();
   }, [code, date]);
 
   return (
     <div>
       <StyledCard>
-        <Snapshot onClick={openModal}>
-          <Grid
-            container
-            direction="column"
-            justify="flex-start"
-            alignItems="stretch"
-            spacing={1}
-          >
-            <Grid item xs={12}>
-              <FlexWrapperOne>
-                <Covid19Snapshot>
-                  COVID-19 <br />
-                  Snapshot
-                </Covid19Snapshot>
-                <img
-                  src={`https://hatscripts.github.io/circle-flags/flags/${code.toLowerCase()}.svg`}
-                  width="78"
-                  alt="country flag"
-                ></img>
-              </FlexWrapperOne>
-              <CountryTxt>{data.country}</CountryTxt>
-            </Grid>
-            <Hidden xsDown>
+        {code === "" ? (
+          <div style={{ width: "100%", height: "690px" }}>
+            <Placeholder>
+              Click on a country to view it's COVID-19 Snapshot
+            </Placeholder>
+            <img src={SnapPlaceholder} alt="placeholder" />
+          </div>
+        ) : (
+          <Snapshot onClick={openModal}>
+            <Grid
+              container
+              direction="column"
+              justify="flex-start"
+              alignItems="stretch"
+              spacing={1}
+            >
               <Grid item xs={12}>
-                <FlexWrapperTwo>
-                  <RelativeWrapperThree>
-                    <NewCases24>
-                      <Num24hrsLbl>New cases in the last 24 hours</Num24hrsLbl>
-                      <DailyNum>{cases.dailyCases}</DailyNum>
-                      <DailyNumDiff>{diffs.casesDiff}</DailyNumDiff>
-                    </NewCases24>
-                    {diffs.casesDiffInd === "up" ? (
-                      <Icons8Up1 alt="up" src={up_icon} />
-                    ) : (
-                      <Icons8Down1 alt="down" src={down_icon} />
-                    )}
-                  </RelativeWrapperThree>
-                  <RelativeWrapperThree>
-                    <WeeklyCases>
-                      <WeekLbl>Weekly rate of new cases/100k</WeekLbl>
-                      <RelativeWrapperOne>
-                        <WeekNum>{cases.rate}</WeekNum>
-                        <WeekNumDiff>{diffs.rateDiff}</WeekNumDiff>
-                      </RelativeWrapperOne>
-                    </WeeklyCases>
-                    {diffs.rateDiffInd === "up" ? (
-                      <Icons8Up1 alt="" src={up_icon} />
-                    ) : (
-                      <Icons8Down1 alt="down" src={down_icon} />
-                    )}
-                  </RelativeWrapperThree>
-                </FlexWrapperTwo>
-                <Grid container>
-                  <Grid item>
-                    <Link onClick={openLink}>
-                      Source: World Health Organisation (WHO)
-                    </Link>
-                  </Grid>
-                  <Grid item>
-                    <Icons8ExternalLink1
-                      onClick={openLink}
-                      alt=""
-                      src={external_link_icon}
-                    />
+                <FlexWrapperOne>
+                  <Covid19Snapshot>
+                    COVID-19 <br />
+                    Snapshot
+                  </Covid19Snapshot>
+                  <img
+                    src={`https://hatscripts.github.io/circle-flags/flags/${code.toLowerCase()}.svg`}
+                    width="78"
+                    alt="country flag"
+                  ></img>
+                </FlexWrapperOne>
+                <CountryTxt>{data.country}</CountryTxt>
+              </Grid>
+              <Hidden xsDown>
+                <Grid item xs={12}>
+                  <FlexWrapperTwo>
+                    <RelativeWrapperThree>
+                      <NewCases24>
+                        <Num24hrsLbl>
+                          New cases in the last 24 hours
+                        </Num24hrsLbl>
+                        <DailyNum>{cases.dailyCases}</DailyNum>
+                        <DailyNumDiff>{diffs.casesDiff}</DailyNumDiff>
+                      </NewCases24>
+                      {diffs.casesDiffInd === "up" ? (
+                        <Icons8Up1 alt="up" src={up_icon} />
+                      ) : (
+                        <Icons8Down1 alt="down" src={down_icon} />
+                      )}
+                    </RelativeWrapperThree>
+                    <RelativeWrapperThree>
+                      <WeeklyCases>
+                        <WeekLbl>Weekly rate of new cases/100k</WeekLbl>
+                        <RelativeWrapperOne>
+                          <WeekNum>{cases.rate}</WeekNum>
+                          <WeekNumDiff>{diffs.rateDiff}</WeekNumDiff>
+                        </RelativeWrapperOne>
+                      </WeeklyCases>
+                      {diffs.rateDiffInd === "up" ? (
+                        <Icons8Up1 alt="" src={up_icon} />
+                      ) : (
+                        <Icons8Down1 alt="down" src={down_icon} />
+                      )}
+                    </RelativeWrapperThree>
+                  </FlexWrapperTwo>
+                  <Grid container>
+                    <Grid item>
+                      <Link onClick={openLink}>
+                        Source: World Health Organisation (WHO)
+                      </Link>
+                    </Grid>
+                    <Grid item>
+                      <Icons8ExternalLink1
+                        onClick={openLink}
+                        alt=""
+                        src={external_link_icon}
+                      />
+                    </Grid>
                   </Grid>
                 </Grid>
-              </Grid>
-              <Grid item xs={12}>
-                <AdviceTxt>Travel Advice:</AdviceTxt>
-                <AdviceContent>{data.info}</AdviceContent>
-                <table>
-                  <tbody>
-                    <tr>
-                      <th>Source(s):</th>
-                    </tr>
-                    {data.links
-                      ? data.links.map((link, index) => (
-                          <tr
-                            key={index}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              window.open(link, "_blank");
-                            }}
-                          >
-                            <td>
-                              <Link>External Link {index + 1}</Link>
-                            </td>
-                            <td>
-                              <img
-                                alt="external"
-                                src={external_link_icon}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  window.open(link, "_blank");
-                                }}
-                              />
-                            </td>
-                          </tr>
-                        ))
-                      : null}
-                  </tbody>
-                </table>
-                <AdviceTxt>Last updated: {data.date}</AdviceTxt>
-              </Grid>
-            </Hidden>
-          </Grid>
-        </Snapshot>
+                <Grid item xs={12}>
+                  <AdviceTxt>Travel Advice:</AdviceTxt>
+                  <AdviceContent>{data.info}</AdviceContent>
+                  <table>
+                    <tbody>
+                      <tr>
+                        <th>Source(s):</th>
+                      </tr>
+                      {data.links
+                        ? data.links.map((link, index) => (
+                            <tr
+                              key={index}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                window.open(link, "_blank");
+                              }}
+                            >
+                              <td>
+                                <Link>External Link {index + 1}</Link>
+                              </td>
+                              <td>
+                                <img
+                                  alt="external"
+                                  src={external_link_icon}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    window.open(link, "_blank");
+                                  }}
+                                />
+                              </td>
+                            </tr>
+                          ))
+                        : null}
+                    </tbody>
+                  </table>
+                  <AdviceTxt>Last updated: {data.date}</AdviceTxt>
+                </Grid>
+              </Hidden>
+            </Grid>
+          </Snapshot>
+        )}
       </StyledCard>
       <Modal
         id="modal-1"

@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import TravelIdeas from "pages/TravelIdeas.js";
 import EmailSuccess from "pages/EmailSuccess.js";
 import EmailFailure from "pages/EmailFailure.js";
+import TravelAdvice from "pages/TravelAdvice";
 
 export default function App() {
   return (
@@ -28,6 +29,9 @@ export default function App() {
         </Route>
         <Route path="/failure">
           <EmailFailure />
+        </Route>
+        <Route path="/travel-advice">
+          <TravelAdvice />
         </Route>
       </Switch>
     </Router>

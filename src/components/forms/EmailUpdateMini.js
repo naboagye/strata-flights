@@ -95,7 +95,7 @@ export default (
           setCountry(response.data.body.Item.country);
         });
     };
-    fetchData();
+    code !== "" && fetchData();
   }, [code, date]);
 
   // setTimeout(() => {

@@ -92,7 +92,7 @@ export default ({
     <NavLinks key={1}>
       <NavLink href="/search">Search</NavLink>
       <NavLink href="/travel-ideas">Travel Ideas</NavLink>
-      <NavLink href="/#">Travel Advice</NavLink>
+      <NavLink href="/travel-advice">Travel Advice</NavLink>
     </NavLinks>,
   ];
 
