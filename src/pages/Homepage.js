@@ -14,7 +14,7 @@ import MiniCenteredFooter from "components/footers/MiniCenteredFooter.js";
 // import chefIconImageSrc from "images/chef-icon.svg";
 // import celebrationIconImageSrc from "images/celebration-icon.svg";
 // import shopIconImageSrc from "images/shop-icon.svg";
-import eiffel from "images/holidayImages.png";
+import eiffel from "images/holidayImages.webp";
 // import GetStartedLight from "components/cta/GetStartedLight";
 // import UpdatesSignUp from "components/cta/UpdatesSignUp";
 import TwoColUpdate from "components/forms/TwoColUpdate";

@@ -616,6 +616,13 @@ const SnapshotComponent = (props) => {
     window.open("https://covid19.who.int/table");
   };
 
+  const openWiki = (e) => {
+    e.stopPropagation();
+    window.open(
+      "https://en.wikipedia.org/wiki/COVID-19_lockdowns#Table_of_pandemic_lockdowns"
+    );
+  };
+
   const openModal = () => {
     //console.log(isOpen);
     setIsOpen(true);
@@ -853,7 +860,9 @@ const SnapshotComponent = (props) => {
                   <NewCases25>
                     <Num24hrsLblTwo>Lockdown Status</Num24hrsLblTwo>
                     <DailyNumTwo>{lockdowns.fact}</DailyNumTwo>
-                    <DailyNumDiffTwo>Ending: {lockdowns.date}</DailyNumDiffTwo>
+                    <DailyNumDiffTwo>
+                      Ending: {lockdowns.lockdownEndDate}
+                    </DailyNumDiffTwo>
                   </NewCases25>
                   <WeeklyCasesTwo>
                     <WeekLblTwo>Quarantine Status</WeekLblTwo>
@@ -868,13 +877,11 @@ const SnapshotComponent = (props) => {
               </Grid>
               <Grid container>
                 <Grid item>
-                  <Link onClick={openLink}>
-                    Source: World Health Organisation (WHO)
-                  </Link>
+                  <Link onClick={openWiki}>Source: Wikipedia</Link>
                 </Grid>
                 <Grid item>
                   <Icons8ExternalLink1Modal
-                    onClick={openLink}
+                    onClick={openWiki}
                     alt="external"
                     src={external_link_icon}
                   />
