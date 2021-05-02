@@ -7,9 +7,11 @@ import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
 import { ReactComponent as LocationIcon } from "feather-icons/dist/icons/map-pin.svg";
 import { ReactComponent as TimeIcon } from "feather-icons/dist/icons/clock.svg";
 import { ReactComponent as TrendingIcon } from "feather-icons/dist/icons/trending-up.svg";
+import Snap from "components/cards/Snap.js";
+import { Drawer } from "react-rainbow-components";
 
 const Container = tw.div`relative`;
-const Content = tw.div`max-w-screen-xl mx-auto py-20 lg:py-24`;
+const Content = tw.div`max-w-screen-xl mx-auto py-8 lg:py-8`;
 
 const ThreeColumn = tw.div`flex flex-wrap`;
 const Column = tw.div``;
@@ -43,10 +45,13 @@ const CardMetaFeature = styled.div`
 `;
 const CardAction = tw(PrimaryButtonBase)`w-full mt-8`;
 
-export default () => {
+const FullTrending = ({ codes }) => {
   const [locations, setLocations] = useState([]);
   const [prices, setPrices] = useState([]);
   const [images, setImages] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [code, setCode] = useState("");
+  //console.log(codes);
 
   function getAbbreviation(text) {
     if (typeof text != "string" || !text) {
@@ -68,11 +73,18 @@ export default () => {
     const fetchLocations = async () => {
       await axios
         .get(
-          `https://xtogjhen60.execute-api.eu-west-2.amazonaws.com/dev/locations/topdestinations?term=london_gb&locale=en-US&limit=9&sort=name&active_only=true&source_popularity=searches`
+          `https://xtogjhen60.execute-api.eu-west-2.amazonaws.com/dev/locations/topdestinations?term=london_gb&locale=en-US&limit=10&sort=name&active_only=true&source_popularity=searches`
         )
         .then((response) => {
-          //console.log(response.data.locations);
           return response.data.locations;
+        })
+        .then((countries) => {
+          countries.forEach((country) => {
+            if (codes.indexOf(country.country.id) !== -1) {
+              countries.splice(countries.indexOf(country), 1);
+            }
+          });
+          return countries;
         })
         .then((locs) => {
           locs.forEach((obj) => {
@@ -103,8 +115,8 @@ export default () => {
           });
         });
     };
-    fetchLocations();
-  }, []);
+    codes.length > 0 && fetchLocations();
+  }, [codes]);
 
   return (
     <Container>
@@ -139,13 +151,29 @@ export default () => {
                           : location.country.name}
                       </CardMetaFeature>
                     </CardMeta>
-                    <CardAction>Book Now</CardAction>
+                    <CardAction
+                      onClick={() => {
+                        setIsOpen(true);
+                        setCode(location.country.id);
+                      }}
+                    >
+                      View Snapshot
+                    </CardAction>
                   </CardText>
                 </Card>
               </CardColumn>
             ))}
         </ThreeColumn>
+        <Drawer
+          id="drawer-1"
+          isOpen={isOpen}
+          onRequestClose={() => setIsOpen(false)}
+        >
+          <Snap code={code} />
+        </Drawer>
       </Content>
     </Container>
   );
 };
+
+export default FullTrending;

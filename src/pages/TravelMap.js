@@ -39,7 +39,6 @@ const TravelMap = ({ getCode, setTooltipContent, sort, lockdown, data }) => {
                     }}
                     onMouseEnter={() => {
                       const { NAME } = geo.properties;
-
                       setTooltipContent(
                         `${NAME} — ${
                           d !== undefined

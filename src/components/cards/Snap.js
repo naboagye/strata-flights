@@ -12,6 +12,7 @@ import down_icon from "images/down_icon.png";
 import external_link_icon from "images/external_link_icon.png";
 import { SectionHeading } from "components/misc/Headings.js";
 import SnapPlaceholder from "images/snap_placeholder.svg";
+import Disclaimer from "components/custom/Disclaimer";
 
 export const Snapshot = styled.div`
   background-color: ${(props) => props.theme.colors.white};
@@ -257,7 +258,7 @@ export const WrapperThree = styled.div`
 `;
 export const Covid19SnapshotModal = styled.p`
   height: 71px;
-  width: 186px;
+  width: 200px;
   color: ${(props) => props.theme.colors.darkSlateGray};
   display: flex;
   margin-top: 25px;
@@ -607,6 +608,7 @@ const SnapshotComponent = (props) => {
   const [cases, setCases] = useState("");
   const [diffs, setDiffs] = useState("");
   const [lockdowns, setLockdowns] = useState("");
+
   //const [imgLink, setImgLink] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   //const [clicked, setClicked] = useState(false);
@@ -632,6 +634,16 @@ const SnapshotComponent = (props) => {
     setIsOpen(false);
   };
 
+  const minimise = (text) => {
+    //console.log(text && text.length);
+    if (text && text.length > 170) {
+      //setMore(true);
+      return text.slice(0, 170);
+    }
+    return text;
+    //return  &&  + "...read more";
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       await axios
@@ -648,20 +660,34 @@ const SnapshotComponent = (props) => {
         ])
         .then((response) => {
           setData(response[0].data.body.Item);
-          setCases(response[1].data.body.Item.Item);
-          setDiffs(response[1].data.body);
+          setCases(
+            response[1].data.body
+              ? response[1].data.body.Item.Item
+              : {
+                  dailyCases: "N/A",
+                  rate: "N/A",
+                }
+          );
+          setDiffs(
+            response[1].data.body
+              ? response[1].data.body
+              : {
+                  casesDiff: "N/A",
+                  rateDiff: "N/A",
+                }
+          );
           setLockdowns(response[2].data.body.Item);
         })
         .catch((err) => {
           if (err.response) {
             setData("N/A");
-            setCases("N/A");
+            setCases({ dailyCases: "N/A", rate: "N/A" });
             setDiffs("N/A");
             setLockdowns("N/A");
           }
         });
     };
-    code !== "" && fetchData();
+    code !== "" && code !== "-99" && fetchData();
   }, [code, date]);
 
   return (
@@ -688,6 +714,7 @@ const SnapshotComponent = (props) => {
                   <Covid19Snapshot>
                     COVID-19 <br />
                     Snapshot
+                    <Disclaimer />
                   </Covid19Snapshot>
                   <img
                     src={`https://hatscripts.github.io/circle-flags/flags/${code.toLowerCase()}.svg`}
@@ -746,7 +773,8 @@ const SnapshotComponent = (props) => {
                 </Grid>
                 <Grid item xs={12}>
                   <AdviceTxt>Travel Advice:</AdviceTxt>
-                  <AdviceContent>{data.info}</AdviceContent>
+                  <AdviceContent>{minimise(data.info)}</AdviceContent>
+                  <Link onClick={openModal}>...Read More</Link>
                   <table>
                     <tbody>
                       <tr>
@@ -800,6 +828,7 @@ const SnapshotComponent = (props) => {
                   <Covid19SnapshotModal>
                     COVID-19 <br />
                     Snapshot
+                    <Disclaimer />
                   </Covid19SnapshotModal>
                   <img
                     src={`https://hatscripts.github.io/circle-flags/flags/${code.toLowerCase()}.svg`}
