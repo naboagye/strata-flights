@@ -10,7 +10,6 @@ import {
 } from "components/misc/Headings.js";
 import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
 import UpdateMan from "images/update-man.svg";
-//import LookupInput2 from "components/forms/LookupInput2.js";
 import { Card } from "react-rainbow-components";
 import Hidden from "@material-ui/core/Hidden";
 
@@ -98,32 +97,12 @@ export default (
     code !== "" && fetchData();
   }, [code, date]);
 
-  // setTimeout(() => {
-  //   setSubmitting(false);
-  // }, 15000);
-
   const handleChange = (event) => {
     setFormData({
       name: event.target.name,
       value: event.target.value,
     });
   };
-
-  // const handleChangeLookup = (val, code, name) => {
-  //   //console.log(val, code, name);
-  //   setFormData({
-  //     name: "airport",
-  //     value: val,
-  //   });
-  //   setFormData({
-  //     name: "city",
-  //     value: name,
-  //   });
-  //   setFormData({
-  //     name: "country",
-  //     value: code,
-  //   });
-  // };
 
   return (
     <Card>

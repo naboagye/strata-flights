@@ -58,7 +58,7 @@ export const RelativeWrapperOne = styled.div`
   position: relative;
 `;
 export const FromBox = styled.div`
-  background-color: ${(props) => props.theme.colors.snow};
+  background-color: ${(props) => props.theme.colors.white};
   border-radius: 10px;
   padding: 16px 18px 12px 26px;
   position: relative;
@@ -90,11 +90,20 @@ export const SwitchCircle = styled.div`
   z-index: 9;
   display: flex;
   align-items: center;
-  right: -30px;
+  left: 210px;
+  top: 90px;
+  position: absolute;
   width: 50px;
   border: 1px solid ${(props) => props.theme.colors.gainsboro};
+  @media (max-width: 1200px) {
+    left: 160px;
+    top: 90px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-  @media (max-width: 725px) {
+  @media (max-width: 600px) {
+    position: initial;
     margin-left: auto;
     margin-right: auto;
   }
@@ -121,7 +130,7 @@ export const EcLabel = styled.p`
   line-height: ${(props) => props.theme.fonts.nunito14SemiBold.lineHeight};
 `;
 export const ToBox = styled.div`
-  background-color: ${(props) => props.theme.colors.snow};
+  background-color: ${(props) => props.theme.colors.white};
   border-radius: 10px;
   padding: 16px 18px 12px 26px;
   position: relative;
@@ -211,45 +220,36 @@ const SearchResults = (props) => {
   const [outbound, setOutbound] = useState([0, 23]);
   const [inbound, setInbound] = useState([0, 23]);
   const [sort, setSort] = useState("price");
-  //const [loadCard, setLoadCard] = useState(term === "" ? false : true);
 
   function search(term, code) {
-    //console.log(term);
     setTerm(term);
   }
   function search2(term, code) {
-    //console.log(code);
     setLocation(term);
     setCode(code);
   }
 
   function getFromDate(term) {
-    //console.log(term.value);
     setFromDate(term.value);
   }
 
   function getToDate(term) {
-    //console.log(term.value);
     setToDate(term.value);
   }
 
   function getTripClass(term) {
-    //console.log(term);
     setTripClass(term.name);
   }
 
   function getPassengerNum(term) {
-    //console.log(term);
     setPassengersNum(term.name);
   }
 
   function getOneWayOrReturn(term) {
-    //console.log(term);
     setOneWayOrReturn(term.name);
   }
 
   function pullFilters(filters) {
-    //console.log(filters);
     filters[0].value ? setMaxStopsNum(0) : setMaxStopsNum("");
     setMinPrice(0);
     filters[1] ? setMaxPrice(500) : setMaxPrice("");
@@ -258,7 +258,6 @@ const SearchResults = (props) => {
   }
 
   function getSort(term) {
-    //console.log(term);
     setSort(term);
   }
 
@@ -270,7 +269,6 @@ const SearchResults = (props) => {
         `https://xtogjhen60.execute-api.eu-west-2.amazonaws.com/dev/locations/id?id=${term}&locale=en-US&location_types=airport&limit=50&active_only=true`
       )
       .then((response) => {
-        //console.log(response.data.locations);
         setCode(response.data.locations[0].city.country.code);
       });
   };
@@ -321,17 +319,27 @@ const SearchResults = (props) => {
                   <FromBox>
                     <LookupInput term={term} search={search} />
                   </FromBox>
+                  <Hidden xsDown>
+                    <SwitchCircle onClick={switchLocations}>
+                      <img alt="switch" src={switch_icon} />
+                    </SwitchCircle>
+                  </Hidden>
                 </Grid>
-                <Grid item xs={12} sm={1}>
-                  <SwitchCircle onClick={switchLocations}>
-                    <img alt="switch" src={switch_icon} />
-                  </SwitchCircle>
-                </Grid>
+                <Hidden smUp>
+                  <Grid item xs>
+                    <SwitchCircle onClick={switchLocations}>
+                      <img alt="switch" src={switch_icon} />
+                    </SwitchCircle>
+                  </Grid>
+                </Hidden>
                 <Grid item xs={12} sm={3}>
                   <ToBox>
                     <LookupInput term={location} search={search2} />
                   </ToBox>
                 </Grid>
+                <Hidden xsDown>
+                  <Grid item xs={12} sm={1}></Grid>
+                </Hidden>
                 <Grid item xs={12} sm={5}>
                   <DatePicker>
                     <FlexWrapperOne>

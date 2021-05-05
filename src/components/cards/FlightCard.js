@@ -177,14 +177,12 @@ const FlightCard = (props) => {
   const openLink = () => {
     window.open(props.link);
   };
-  //console.log(props.ibdStopDuration);
   const getAirline = async (code) => {
     await axios
       .get(
         `https://kmp2mtle3m.execute-api.eu-west-2.amazonaws.com/dev/airlines?iata_code=${code}`
       )
       .then((response) => {
-        //console.log(response.data.response[0].name);
         setAirline1(response.data.response[0].name);
       });
   };
@@ -195,12 +193,10 @@ const FlightCard = (props) => {
         `https://kmp2mtle3m.execute-api.eu-west-2.amazonaws.com/dev/airlines?iata_code=${code}`
       )
       .then((response) => {
-        //console.log(response.data.response[0].name);
         setAirline2(response.data.response[0].name);
       })
       .catch((err) => {
         if (err.response) {
-          // client received an error response (5xx, 4xx)
           setAirline2("");
         }
       });
@@ -209,7 +205,6 @@ const FlightCard = (props) => {
   useEffect(() => {
     getAirline(props.obdAirline);
     getAirline2(props.ibdAirline);
-    //console.log("got airline");
   }, [props.obdAirline, props.ibdAirline]);
 
   return (

@@ -609,9 +609,7 @@ const SnapshotComponent = (props) => {
   const [diffs, setDiffs] = useState("");
   const [lockdowns, setLockdowns] = useState("");
 
-  //const [imgLink, setImgLink] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  //const [clicked, setClicked] = useState(false);
 
   const openLink = (e) => {
     e.stopPropagation();
@@ -626,7 +624,6 @@ const SnapshotComponent = (props) => {
   };
 
   const openModal = () => {
-    //console.log(isOpen);
     setIsOpen(true);
   };
 
@@ -635,13 +632,10 @@ const SnapshotComponent = (props) => {
   };
 
   const minimise = (text) => {
-    //console.log(text && text.length);
     if (text && text.length > 170) {
-      //setMore(true);
       return text.slice(0, 170);
     }
     return text;
-    //return  &&  + "...read more";
   };
 
   useEffect(() => {
@@ -687,7 +681,7 @@ const SnapshotComponent = (props) => {
           }
         });
     };
-    code !== "" && code !== "-99" && fetchData();
+    code.length === 2 && fetchData();
   }, [code, date]);
 
   return (

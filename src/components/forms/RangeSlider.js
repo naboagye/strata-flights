@@ -167,19 +167,16 @@ export default function RangeSlider(props) {
 
   const handleChange = (event, newValue) => {
     setOutbound(newValue);
-    //console.log(outbound);
   };
 
   const handleChange2 = (event, newValue) => {
     setInbound(newValue);
-    //console.log(inbound);
   };
 
   function submit() {
     if (typeof props.search === "function") {
       props.search(outbound, inbound);
     }
-    //console.log(keyword);
   }
 
   return (
@@ -202,7 +199,6 @@ export default function RangeSlider(props) {
           index === 0 ? "Minimum price" : "Maximum price"
         }
         valueLabelDisplay="on"
-        //defaultValue={outbound}
       />
       <Typography gutterBottom>Inbound</Typography>
       <Typography gutterBottom>

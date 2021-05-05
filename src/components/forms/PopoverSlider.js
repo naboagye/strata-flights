@@ -1,14 +1,7 @@
 import React from "react";
-//import { makeStyles } from "@material-ui/core/styles";
 import Popover from "@material-ui/core/Popover";
 import styled, { css } from "styled-components";
 import RangeSlider from "components/forms/RangeSlider.js";
-
-// const useStyles = makeStyles((theme) => ({
-//   typography: {
-//     padding: theme.spacing(2),
-//   },
-// }));
 
 const StyledPopover = styled.div`
   margin-top: 1px;
@@ -57,7 +50,6 @@ export default function PopoverSlider(props) {
     if (typeof props.search === "function") {
       props.search(outbound, inbound);
     }
-    //console.log(keyword);
   }
 
   return (

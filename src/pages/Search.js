@@ -5,7 +5,6 @@ import Header from "components/headers/light.js";
 import Footer from "components/footers/MiniCenteredFooter.js";
 import { useLocation } from "react-router-dom";
 import SearchResults from "components/cards/SearchResults.js";
-//import tw from "twin.macro";
 
 export default () => {
   const location = useLocation();

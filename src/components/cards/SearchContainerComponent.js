@@ -233,37 +233,30 @@ const SearchContainerComponent = (props) => {
   }
 
   function search(term, code) {
-    //console.log(term);
     setTerm(term);
   }
   function search2(term, code) {
-    //console.log(term);
     setLocation(term);
     setCode(code);
   }
 
   function getFromDate(term) {
-    //console.log(term);
     setFromDate(term);
   }
 
   function getToDate(term) {
-    //console.log(term);
     setToDate(term);
   }
 
   function getTripClass(term) {
-    //console.log(term);
     setTripClass(term);
   }
 
   function getPassengerNum(term) {
-    //console.log(term);
     setPassengersNum(term);
   }
 
   function getOneWayOrReturn(term) {
-    //console.log(term);
     setOneWayOrReturn(term);
   }
   return (

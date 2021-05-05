@@ -27,19 +27,7 @@ export default () => {
   const [codes, setCodes] = useState([]);
   const date = getYYYYMMDD(new Date());
 
-  // const fetchData = async () => {
-  //   await axios
-  //     .get(
-  //       `https://88gaxc0vg4.execute-api.eu-west-2.amazonaws.com/dev?date=${date}`
-  //     )
-  //     .then((response) => {
-  //       setRedList(response.data.body.countries);
-  //       setCodes(response.data.body.codes);
-  //     });
-  // };
-
   useEffect(() => {
-    //setCode(props.code);
     axios
       .get(
         `https://88gaxc0vg4.execute-api.eu-west-2.amazonaws.com/dev?date=${date}`

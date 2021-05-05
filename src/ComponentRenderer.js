@@ -37,7 +37,7 @@ import TermsOfServicePageImageSrc from "images/demo/TermsOfServicePage.jpeg";
 import PrivacyPolicyPageImageSrc from "images/demo/PrivacyPolicyPage.jpeg";
 
 import BackgroundAsImageHero from "components/hero/BackgroundAsImage.js";
-import IllustrationAndVideoHero from "components/hero/TwoColumnWithVideo.js";
+import IllustrationAndVideoHero from "components/hero/HeroHeader.js";
 import IllustrationAndInputHero from "components/hero/TwoColumnWithInput.js";
 import FeaturesAndTestimonialHero from "components/hero/TwoColumnWithFeaturesAndTestimonial.js";
 import FullWidthWithImageHero from "components/hero/FullWidthWithImage.js";
@@ -62,7 +62,7 @@ import WithStatsAndImage2Features from "components/features/TwoColSingleFeatureW
 import VerticalWithAlternateImageAndTextFeatures from "components/features/VerticalWithAlternateImageAndText.js";
 
 import SliderCards from "components/cards/ThreeColSlider.js";
-import TrendingCards from "components/cards/TwoTrendingPreviewCardsWithImage.js";
+import TrendingCards from "components/cards/MiniTrending.js";
 import PortfolioCards from "components/cards/PortfolioTwoCardsWithImage.js";
 import TabGridCards from "components/cards/TabCardGrid.js";
 import ProfileThreeColGridCards from "components/cards/ProfileThreeColGrid.js";

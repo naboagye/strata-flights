@@ -21,7 +21,6 @@ const DropDown = forwardRef((props, ref) => {
     if (typeof props.search === "function") {
       props.search(keyword);
     }
-    //console.log(keyword);
   }
 
   return (

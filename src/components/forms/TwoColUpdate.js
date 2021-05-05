@@ -9,7 +9,7 @@ import {
 } from "components/misc/Headings.js";
 import { PrimaryButton as PrimaryButtonBase } from "components/misc/Buttons.js";
 import UpdateMan from "images/update-man.svg";
-import LookupInput2 from "components/forms/LookupInput2.js";
+import LookupInput2 from "components/forms/LookupInputAlt.js";
 
 const Container = tw.div`relative`;
 const TwoColumn = tw.div`flex flex-col md:flex-row justify-between max-w-screen-xl mx-auto py-20 md:py-24`;
@@ -81,10 +81,6 @@ export default ({
       );
   };
 
-  // setTimeout(() => {
-  //   setSubmitting(false);
-  // }, 15000);
-
   const handleChange = (event) => {
     setFormData({
       name: event.target.name,
@@ -93,7 +89,6 @@ export default ({
   };
 
   const handleChangeLookup = (val, code, name) => {
-    //console.log(val, code, name);
     setFormData({
       name: "airport",
       value: val,

@@ -183,20 +183,15 @@ const Filters = (props) => {
   function getTimes(outbound, inbound) {
     setOutbound(outbound);
     setInbound(inbound);
-    //console.log(outbound, inbound);
   }
 
-  function getAirlines(term) {
-    //console.log(term);
-  }
+  function getAirlines(term) {}
 
   useEffect(() => {
-    //console.log("filter change");
     function submit(keyword) {
       if (typeof search === "function") {
         search(keyword);
       }
-      //console.log(keyword);
     }
     submit([stopsFtr, priceFtr, timesFtr, airlinesFtr, outbound, inbound]);
   }, [stopsFtr, airlinesFtr, priceFtr, timesFtr, outbound, inbound, search]);

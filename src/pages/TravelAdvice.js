@@ -20,7 +20,6 @@ const StyledCard = styled(Card)``;
 const LeftColumn = tw.div`relative lg:w-9/12 lg:pr-6 flex-shrink-0 text-center lg:text-left`;
 const RightColumn = tw.div`relative mt-12 lg:mt-0 flex flex-col`;
 const TwoColumn = tw.div`flex flex-col lg:flex-row  max-w-screen-xl mx-auto py-5 `;
-//const Column = tw.div`relative w-full max-w-screen-xl mx-auto pt-20 `;
 const Container = tw.div`relative`;
 
 const HeadingInfoContainer = tw.div`flex flex-col items-center`;
@@ -34,7 +33,6 @@ export default () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const date = getYYYYMMDD(new Date());
-  //console.log(content);
   function getCode(code) {
     setCode(code);
   }
@@ -52,10 +50,6 @@ export default () => {
   }, []);
 
   useEffect(() => {
-    // json(`/cases.json`).then((data) => {
-    //   setData(data.body);
-    // });
-    //setLoading(isLoading);
     const fetchData = async () => {
       await axios
         .get(

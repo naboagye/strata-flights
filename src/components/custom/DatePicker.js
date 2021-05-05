@@ -1,6 +1,5 @@
 import React from "react";
 import { DatePicker } from "react-rainbow-components";
-//import "./style.css";
 
 export default class Example extends React.Component {
   state = {
@@ -26,6 +25,7 @@ export default class Example extends React.Component {
         style={this.containerStyles}
       >
         <DatePicker
+          formatStyle="small"
           value={this.state.date}
           minDate={this.state.today}
           maxDate={
@@ -41,7 +41,6 @@ export default class Example extends React.Component {
             this.setState({ date: value });
             this.submit({ value });
           }}
-          //onBlur={(value) => this.submit({ value })}
         />
       </div>
     );

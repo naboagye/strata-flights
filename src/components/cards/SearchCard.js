@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-//import tw from "twin.macro";
 import { Card } from "react-rainbow-components";
 import FlightCard from "./FlightCard";
 import styled from "styled-components";
@@ -20,32 +19,9 @@ const StyledCard = styled(Card)`
   margin: 10px 0 10px 0;
 `;
 
-//const Column = tw.div`w-full max-w-md mx-auto md:max-w-none md:mx-0`;
-
 export default (props) => {
   const [flights, setFlights] = useState(null);
   const [isLoading, setLoading] = useState(props.isLoading);
-
-  // console.log(
-  //   "@@@@",
-  //   props.from,
-  //   props.to,
-  //   props.fromDate,
-  //   props.toDate,
-  //   props.oneWayOrReturn,
-  //   props.passengersNum,
-  //   props.tripClass,
-  //   "stops: ",
-  //   props.maxStopsNum,
-  //   "min: ",
-  //   props.minPrice,
-  //   "max: ",
-  //   props.maxPrice,
-  //   props.outbound,
-  //   props.inbound,
-  //   props.sort,
-  //   isLoading
-  // );
 
   useEffect(() => {
     setLoading(props.isLoading);

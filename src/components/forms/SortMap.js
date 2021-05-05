@@ -6,10 +6,6 @@ const options = [
   { value: "rate", label: "Weekly Rate of cases per 100k people" },
 ];
 
-// const containerStyles = {
-//   margin: "10px auto 10px auto",
-// };
-
 export default function Sort(props) {
   const [value, setValue] = useState("dailyCases");
   const search = props.search;
@@ -26,10 +22,7 @@ export default function Sort(props) {
     submit(value);
   }, [value, search]);
   return (
-    <div
-    //className="rainbow-p-around_x-large rainbow-align-content_center"
-    //style={containerStyles}
-    >
+    <div>
       <RadioButtonGroup
         id="radio-button-group-component-1"
         options={options}

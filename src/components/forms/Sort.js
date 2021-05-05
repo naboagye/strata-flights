@@ -30,7 +30,7 @@ export default function Sort(props) {
       style={containerStyles}
     >
       <RadioButtonGroup
-        id="radio-button-group-component-1"
+        id="radio-button-group-component-2"
         options={options}
         value={value}
         onChange={handleOnChange}

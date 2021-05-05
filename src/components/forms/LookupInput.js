@@ -10,22 +10,6 @@ import Typography from "@material-ui/core/Typography";
 import styled from "styled-components";
 import { matchSorter } from "match-sorter";
 
-// const FromBox = styled.div`
-//   background-color: ${(props) => props.theme.colors.white};
-//   border-radius: 10px;
-//   position: relative;
-//   border: 1px solid ${(props) => props.theme.colors.gainsboro};
-//   padding: 23px 23px 23px 29px;
-// `;
-
-// const FromLbl = styled.input`
-//   font-family: ${(props) => props.theme.fonts.nunito18SemiBold.family};
-//   font-size: ${(props) => props.theme.fonts.nunito18SemiBold.size};
-//   font-weight: ${(props) => props.theme.fonts.nunito18SemiBold.weight};
-//   line-height: ${(props) => props.theme.fonts.nunito18SemiBold.lineHeight};
-//   color: ${(props) => props.theme.colors.darkSlateGray};
-//   letter-spacing: 0.2px;
-// `;
 const useStyles = makeStyles((theme) => ({
   icon: {
     color: theme.palette.text.secondary,
@@ -43,7 +27,6 @@ export const FromBox = styled(TextField)`
 `;
 
 export default function LookupInput(props) {
-  //const [term, setTerm] = useState(props.term || "");
   const [locations, setLocations] = useState([]);
   const [query, setQuery] = useState(props.query || "a");
   const classes = useStyles();
@@ -67,7 +50,6 @@ export default function LookupInput(props) {
     if (typeof props.search === "function") {
       props.search(airport, country_code);
     }
-    //console.log(keyword);
   }
 
   const filterOptions = (options, { inputValue }) =>
@@ -122,4 +104,3 @@ export default function LookupInput(props) {
     />
   );
 }
-

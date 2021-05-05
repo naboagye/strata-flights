@@ -9,6 +9,8 @@ import { ReactComponent as TimeIcon } from "feather-icons/dist/icons/clock.svg";
 import { ReactComponent as TrendingIcon } from "feather-icons/dist/icons/trending-up.svg";
 import Snap from "components/cards/Snap.js";
 import { Drawer } from "react-rainbow-components";
+import { getDDMMYYYYAPI } from "helpers/DurationConverter";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 const Container = tw.div`relative`;
 const Content = tw.div`max-w-screen-xl mx-auto py-8 lg:py-8`;
@@ -51,7 +53,7 @@ const FullTrending = ({ codes }) => {
   const [images, setImages] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [code, setCode] = useState("");
-  //console.log(codes);
+  const [isLoading, setLoading] = useState(true);
 
   function getAbbreviation(text) {
     if (typeof text != "string" || !text) {
@@ -70,6 +72,7 @@ const FullTrending = ({ codes }) => {
   }
 
   useEffect(() => {
+    const date = getDDMMYYYYAPI(new Date());
     const fetchLocations = async () => {
       await axios
         .get(
@@ -90,7 +93,7 @@ const FullTrending = ({ codes }) => {
           locs.forEach((obj) => {
             Promise.all([
               axios.get(
-                `https://xtogjhen60.execute-api.eu-west-2.amazonaws.com/dev/aggregation_search/price_per_city?fly_from=LON&fly_to=${obj.code}&date_from=05%2F05%2F2021&date_to=05%2F05%2F2021&max_fly_duration=20&flight_type=round&adults=1&limit=30`
+                `https://xtogjhen60.execute-api.eu-west-2.amazonaws.com/dev/aggregation_search/price_per_city?fly_from=LON&fly_to=${obj.code}&date_from=${date}&date_to=${date}&max_fly_duration=20&flight_type=round&adults=1&curr=GBP&limit=30`
               ),
               axios.get(
                 `https://nqtf2qcede.execute-api.eu-west-2.amazonaws.com/dev/search/photos?query=${obj.name}`
@@ -107,6 +110,7 @@ const FullTrending = ({ codes }) => {
                   ...current,
                   response[1].data.results[0].urls.raw,
                 ]);
+                setLoading(false);
               })
               .catch((err) => {
                 console.log(err);
@@ -122,47 +126,60 @@ const FullTrending = ({ codes }) => {
     <Container>
       <Content>
         <ThreeColumn>
-          {locations &&
-            locations.map((location, index) => (
+          {(isLoading ? Array.from(new Array(12)) : locations).map(
+            (location, index) => (
               <CardColumn key={index}>
                 <Card>
-                  <CardImage
-                    imageSrc={`${images[index]}&auto=format&fit=crop&w=768&q=80`}
-                  />
-                  <CardText>
-                    <CardHeader>
-                      <CardType>{location.tags[1].tag}</CardType>
-                      <CardPrice>
-                        <CardPriceAmount>from £{prices[index]}</CardPriceAmount>
-                      </CardPrice>
-                    </CardHeader>
-                    <CardTitle>{location.name}</CardTitle>
-                    <CardMeta>
-                      <CardMetaFeature>
-                        <TrendingIcon /> {"Trending"}
-                      </CardMetaFeature>
-                      <CardMetaFeature>
-                        <TimeIcon /> {"7 days"}
-                      </CardMetaFeature>
-                      <CardMetaFeature>
-                        <LocationIcon />{" "}
-                        {location.country.name.length > 13
-                          ? getAbbreviation(location.country.name)
-                          : location.country.name}
-                      </CardMetaFeature>
-                    </CardMeta>
-                    <CardAction
-                      onClick={() => {
-                        setIsOpen(true);
-                        setCode(location.country.id);
-                      }}
-                    >
-                      View Snapshot
-                    </CardAction>
-                  </CardText>
+                  {location ? (
+                    <CardImage
+                      imageSrc={`${images[index]}&auto=format&fit=crop&w=768&q=80`}
+                    />
+                  ) : (
+                    <Skeleton variant="rect" width={300} height={300} />
+                  )}
+                  {location ? (
+                    <CardText>
+                      <CardHeader>
+                        <CardType>{location.tags[1].tag}</CardType>
+                        <CardPrice>
+                          <CardPriceAmount>
+                            from £{prices[index]}
+                          </CardPriceAmount>
+                        </CardPrice>
+                      </CardHeader>
+                      <CardTitle>{location.name}</CardTitle>
+                      <CardMeta>
+                        <CardMetaFeature>
+                          <TrendingIcon /> {"Trending"}
+                        </CardMetaFeature>
+                        <CardMetaFeature>
+                          <TimeIcon /> {"7 days"}
+                        </CardMetaFeature>
+                        <CardMetaFeature>
+                          <LocationIcon />{" "}
+                          {location.country.name.length > 13
+                            ? getAbbreviation(location.country.name)
+                            : location.country.name}
+                        </CardMetaFeature>
+                      </CardMeta>
+                      <CardAction
+                        onClick={() => {
+                          setIsOpen(true);
+                          setCode(location.country.id);
+                        }}
+                      >
+                        View Snapshot
+                      </CardAction>
+                    </CardText>
+                  ) : (
+                    <CardText>
+                      <Skeleton width="100%" />
+                    </CardText>
+                  )}
                 </Card>
               </CardColumn>
-            ))}
+            )
+          )}
         </ThreeColumn>
         <Drawer
           id="drawer-1"

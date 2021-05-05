@@ -1,3 +1,4 @@
+/* builds url to use in Kiwi's API search endpoint*/
 export function Url(
   from,
   to,

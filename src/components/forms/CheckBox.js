@@ -28,7 +28,6 @@ export default function Checkbox(props) {
     if (typeof props.search === "function") {
       props.search(values);
     }
-    //console.log(keyword);
   }
 
   return (
